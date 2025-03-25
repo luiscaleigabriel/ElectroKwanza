@@ -12,7 +12,7 @@
                             </div> -->
                         <ul class="user-login">
                             <li>
-                                <a href="login.html">Login</a>
+                                <a href="{{ route('login') }}">Login</a>
                             </li>
                             <li>
                                 <a href="register.html">Registre-se</a>
@@ -31,7 +31,7 @@
                 <div class="col-lg-3 col-md-3 col-7">
                     <!-- Start Header Logo -->
                     <a class="navbar-brand" href="index.html">
-                        <img src="imagens/logo.svg" alt="Logo">
+                    <img src="{{ asset('assets/imagens/logo.png') }}" alt="Logo">
                     </a>
                     <!-- End Header Logo -->
                 </div>

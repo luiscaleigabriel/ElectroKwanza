@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +14,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('site.home');
-});
+})->name('home');
+
+/*
+|--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+
+Route::prefix('auth')->name('auth.')->group(
+    function() {
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
+        Route::post('/logout', [AuthController::class, 'login'])->name('logout');
+    }
+);
 
 
 /*
@@ -22,6 +38,6 @@ Route::get('/', function () {
 */
 Route::middleware(['auth', 'admin'])->group(
     function () {
-        Route::get('/admin/dashboard', [DashController::class, 'index']);
+        Route::get('/admin/dashboard', [DashController::class, 'index'])->name('admin.dash');
     }
 );
