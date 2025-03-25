@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone');
             $table->string('address');
+            $table->string('image')->nullable();
             $table->set('role', ['admin', 'seller', 'customer'])->default('customer');
             $table->rememberToken();
             $table->timestamps();
