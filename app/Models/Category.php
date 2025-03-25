@@ -15,11 +15,11 @@ class Category extends Model
         'description'
     ];
 
-    public function subcategory() {
+    public function subcategories() {
         return $this->hasMany(SubCategory::class);
     }
 
-    public function product() {
+    public function products() {
         return $this->hasMany(Product::class);
     }
 }

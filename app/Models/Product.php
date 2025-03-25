@@ -16,15 +16,19 @@ class Product extends Model
         'brand_id', 'category_id', 'subcategory_id'
     ];
 
-    public function category() {
+    public function categories() {
         return $this->belongsTo(Category::class);
     }
 
-    public function subcategory() {
+    public function subcategories() {
         return $this->belongsTo(SubCategory::class);
     }
 
-    public function brand() {
+    public function brands() {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function orders() {
+        return $this->belongsToMany(Order::class, 'order_items')->withPivot('quantity', 'price');
     }
 }
