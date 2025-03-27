@@ -38,6 +38,6 @@ Route::prefix('auth')->name('auth.')->group(
 */
 Route::middleware(['auth', 'admin'])->group(
     function () {
-        Route::get('/admin/dashboard', [DashController::class, 'index'])->name('admin.dash');
+        Route::get('/admin/dashboard', [DashController::class, 'index'])->name('dash');
     }
 );
