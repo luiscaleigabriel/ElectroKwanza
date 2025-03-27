@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class DashController extends Controller
 {
-    //
+    public function index()
+    {
+        view('admin.dash');
+    }
 }
