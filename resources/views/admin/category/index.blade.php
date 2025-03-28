@@ -47,7 +47,7 @@
                                             <button type="button" class="btn btn-outline-dark view-category" data-id="{{ $category->id }}">
                                                 <i class="bi bi-eye"></i>
                                             </button>
-                                            <a href="#" class="btn btn-outline-success"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-outline-success"><i class="bi bi-pencil-square"></i></a>
 
                                             <!-- Botão que chama o modal -->
                                             <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $category->id }}">

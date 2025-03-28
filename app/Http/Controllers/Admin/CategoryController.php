@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.category.create_edit');
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoryController extends Controller
     public function store(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:15|unique:categories,name',
+            'name' => 'required|string|max:20|unique:categories,name',
             'description' => 'required|string',
         ], [
             'name.required' => 'O campo nome é obrigatório',
@@ -88,9 +88,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Category $category)
     {
-        //
+        $category = $category->findOrFail($id);
+        return view('admin.category.create_edit', compact('category'));
     }
 
     /**
@@ -100,9 +101,31 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category, $id)
     {
-        //
+        $category = $category->findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|max:20|unique:categories,name,'. $category->id,
+            'description' => 'required|string',
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.max' => 'O campo nome tem de ter no maximo 15 caracteres',
+            'name.unique' => 'A categoria que quer cadastrar já existe',
+            'description.required' => 'O campo descrição é obrigatório',
+        ]);
+
+        $updated = $category->update([
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name')),
+            'description' => $request->input('description'),
+        ]);
+
+        if ($updated) {
+            return redirect()->route('admin.categories')->with('success', 'Categoria atualizada com sucesso!');
+        } else {
+            return redirect()->route('admin.categories')->with('error', 'Ocorreu um erro ao tentar atualizar a categoria tente novamente!');
+        }
     }
 
     /**
