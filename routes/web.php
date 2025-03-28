@@ -43,5 +43,6 @@ Route::middleware(['auth', 'admin'])->group(
         // Categories operaction
         Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories');
         Route::get('/admin/create/category', [CategoryController::class, 'create'])->name('admin.categories.create');
+        Route::post('/admin/create/category', [CategoryController::class, 'store'])->name('admin.categories.store');
     }
 );

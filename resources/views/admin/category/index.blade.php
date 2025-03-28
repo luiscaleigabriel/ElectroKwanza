@@ -3,13 +3,25 @@
     <!-- Table Start -->
     <div class="container-fluid pt-4 px-4">
         <h2>Categorias</h2>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="row g-4">
             <div class="col-12">
                 <div class="bg-light rounded h-100 p-4">
                     <div class="d-flex align-itens-center justify-content-between mb-4">
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Buscar por..." aria-label="Search">
-                            <button class="btn btn-outline-dark" type="submit">Procurar</button>
+                        <form class="d-flex" role="search" method="GET" action="{{ route('admin.categories') }}">
+                            <input class="form-control me-2" type="search" name="search" placeholder="Buscar por..." value="{{ request('search') }}" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Procurar</button>
                         </form>
                         <a href="{{ route('admin.categories.create') }}" class="btn btn-outline-primary">Nova Categoria</a>
                     </div>
@@ -28,9 +40,9 @@
                                 @forelse ($categories as $category)
                                     <tr>
                                         <th scope="row">{{ $category->id }}</th>
-                                        <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->slug }}</td>
+                                        <td>{{ Str::limit($category->description, 22, '...') }}</td>
                                         <td>
                                             <a href="#" class="btn btn-outline-dark"><i class="bi bi-eye"></i></a>
                                             <a href="#" class="btn btn-outline-success"><i
@@ -44,7 +56,7 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                            {{ $categories->links() }}
+                            {{ $categories->links('pagination.custom') }}
                             {{-- <div class="btn-group me-2" role="group" aria-label="Second group">
                                 <button type="button" class="btn btn-secondary">5</button>
                                 <button type="button" class="btn btn-secondary">6</button>

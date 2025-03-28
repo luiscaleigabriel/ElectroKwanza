@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -13,9 +14,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Category $category)
+    public function index(Request $request ,Category $category)
     {
-        $categories = $category->paginate(10);
+        $search = $request->input('search');
+
+        $categories = $category->when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%")
+                ->orWhere('slug', 'like', "%{$search}%");
+        })->paginate(10);
 
         return view('admin.category.index', compact('categories'));
     }
@@ -27,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -36,9 +43,30 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:15',
+            'description' => 'required|string',
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.max' => 'O campo nome tem de ter no maximo 15 caracteres',
+            'description.required' => 'O campo descrição é obrigatório',
+        ]);
+
+        $slug = Str::slug($request->input('name'));
+
+        $created = $category->create([
+            'name' => $request->input('name'),
+            'slug' => $slug,
+            'description' => $request->input('description'),
+        ]);
+
+        if ($created) {
+            return redirect()->route('admin.categories')->with('success', 'Categoria criada com sucesso!');
+        } else {
+            return redirect()->route('admin.categories')->with('error', 'Ocorreu um erro ao tentar criar a categoria tente novamente!');
+        }
     }
 
     /**
