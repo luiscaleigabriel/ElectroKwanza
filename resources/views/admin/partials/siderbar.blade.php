@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-nav w-100">
             <a href="{{ route('dash') }}" class="nav-item nav-link"><i class="bi bi-grid"></i>Dashboard</a>
-            <a href="widget.html" class="nav-item nav-link"><i class="bi bi-stack"></i>Categorias</a>
+            <a href="{{ route('admin.categories') }}" class="nav-item nav-link"><i class="bi bi-stack"></i>Categorias</a>
             <a href="form.html" class="nav-item nav-link"><i class="bi bi-stack"></i>SubCategorias</a>
             <a href="chart.html" class="nav-item nav-link"><i class="bi bi-stack"></i></i>Marcas</a>
             <a href="table.html" class="nav-item nav-link"><i class="bi bi-cart"></i>Produtos</a>

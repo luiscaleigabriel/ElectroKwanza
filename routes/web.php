@@ -40,6 +40,8 @@ Route::prefix('auth')->name('auth.')->group(
 Route::middleware(['auth', 'admin'])->group(
     function () {
         Route::get('/admin/dashboard', [DashController::class, 'index'])->name('dash');
-        Route::get('/admin/categories', [CategoryController::class, 'show'])->name('admin.categories');
+        // Categories operaction
+        Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories');
+        Route::get('/admin/create/category', [CategoryController::class, 'create'])->name('admin.categories.create');
     }
 );

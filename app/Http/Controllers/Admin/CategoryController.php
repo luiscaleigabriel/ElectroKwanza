@@ -8,19 +8,16 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct(Category $category)
-    {
-        $category = new Category;
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-        //
+        $categories = $category->paginate(10);
+
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
