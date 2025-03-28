@@ -15,11 +15,15 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-            <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Categorias</a>
-            <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>SubCategorias</a>
-            <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Produtos</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Marcas</a>
+            <a href="{{ route('dash') }}" class="nav-item nav-link"><i class="bi bi-grid"></i>Dashboard</a>
+            <a href="widget.html" class="nav-item nav-link"><i class="bi bi-stack"></i>Categorias</a>
+            <a href="form.html" class="nav-item nav-link"><i class="bi bi-stack"></i>SubCategorias</a>
+            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-stack"></i></i>Marcas</a>
+            <a href="table.html" class="nav-item nav-link"><i class="bi bi-cart"></i>Produtos</a>
+            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Compras</a>
+            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-calendar-check"></i>Entregas</a>
+            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-people"></i>Usuários</a>
+            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-chat-left"></i>Mensagens</a>
         </div>
     </nav>
 </div>
