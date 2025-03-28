@@ -69,6 +69,7 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('assets/dash/js/main.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

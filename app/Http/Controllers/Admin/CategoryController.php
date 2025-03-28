@@ -14,7 +14,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request ,Category $category)
+    public function index(Request $request, Category $category)
     {
         $search = $request->input('search');
 
@@ -46,11 +46,12 @@ class CategoryController extends Controller
     public function store(Request $request, Category $category)
     {
         $request->validate([
-            'name' => 'required|string|max:15',
+            'name' => 'required|string|max:15|unique:categories,name',
             'description' => 'required|string',
         ], [
             'name.required' => 'O campo nome é obrigatório',
             'name.max' => 'O campo nome tem de ter no maximo 15 caracteres',
+            'name.unique' => 'A categoria que quer cadastrar já existe',
             'description.required' => 'O campo descrição é obrigatório',
         ]);
 
@@ -75,9 +76,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Category $category)
     {
-        //
+        $category = $category->findOrFail($id);
+        return response()->json($category);
     }
 
     /**
@@ -109,8 +111,15 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Category $category)
     {
-        //
+        $category = $category->findOrFail($id);
+
+        try {
+            $category->delete();
+            return redirect()->route('admin.categories')->with('success', 'Categoria deletada com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.categories')->with('error', 'Erro ao deletar a categoria.');
+        }
     }
 }

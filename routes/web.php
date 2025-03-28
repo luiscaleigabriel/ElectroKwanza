@@ -43,6 +43,10 @@ Route::middleware(['auth', 'admin'])->group(
         // Categories operaction
         Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin.categories');
         Route::get('/admin/create/category', [CategoryController::class, 'create'])->name('admin.categories.create');
+        Route::get('/admin/categories/{id}', [CategoryController::class, 'show'])->name('admin.categories.show');
         Route::post('/admin/create/category', [CategoryController::class, 'store'])->name('admin.categories.store');
+        Route::get('/admin/edit/{id}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+        Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
     }
 );
