@@ -2,7 +2,7 @@
 @section('content')
     <!-- Table Start -->
     <div class="container-fluid pt-4 px-4">
-        <h2>Categorias</h2>
+        <h2>Subcategorias</h2>
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('success') }}
@@ -19,7 +19,7 @@
             <div class="col-12">
                 <div class="bg-light rounded h-100 p-4">
                     <div class="d-flex align-items-center justify-content-between mb-4">
-                        <form class="d-flex" role="search" method="GET" action="{{ route('admin.categories') }}">
+                        <form class="d-flex" role="search" method="GET" action="{{ route('admin.subcategories') }}">
                             <input class="form-control me-2" type="search" name="search" placeholder="Buscar por..." value="{{ request('search') }}" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Procurar</button>
                         </form>
@@ -32,42 +32,44 @@
                                     <th>#</th>
                                     <th>Nome</th>
                                     <th>Slug</th>
+                                    <th>Categoria</th>
                                     <th>Descrição</th>
                                     <th>Ação</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($categories as $category)
+                                @forelse ($subcategories as $subcategory)
                                     <tr>
-                                        <th>{{ $category->id }}</th>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        <td>{{ Str::limit($category->description, 22, '...') }}</td>
+                                        <th>{{ $subcategory->id }}</th>
+                                        <td>{{ $subcategory->name }}</td>
+                                        <td>{{ $subcategory->slug }}</td>
+                                        <td>{{ $subcategory->category_id }}</td>
+                                        <td>{{ Str::limit($subcategory->description, 22, '...') }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-dark view-category" data-id="{{ $category->id }}">
+                                            <button type="button" class="btn btn-outline-dark view-category" data-id="{{ $subcategory->id }}">
                                                 <i class="bi bi-eye"></i>
                                             </button>
-                                            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-outline-success"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ route('admin.categories.edit', $subcategory->id) }}" class="btn btn-outline-success"><i class="bi bi-pencil-square"></i></a>
 
                                             <!-- Botão que chama o modal -->
-                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $category->id }}">
+                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $subcategory->id }}">
                                                 <i class="bi bi-trash"></i>
                                             </button>
 
                                             <!-- Modal de Confirmação -->
-                                            <div class="modal fade" id="deleteModal{{ $category->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $category->id }}" aria-hidden="true">
+                                            <div class="modal fade" id="deleteModal{{ $subcategory->id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ $subcategory->id }}" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteModalLabel{{ $category->id }}">Confirmar Exclusão</h5>
+                                                            <h5 class="modal-title" id="deleteModalLabel{{ $subcategory->id }}">Confirmar Exclusão</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            Tem certeza que deseja excluir a categoria <strong>{{ $category->name }}</strong>?
+                                                            Tem certeza que deseja excluir a categoria <strong>{{ $subcategory->name }}</strong>?
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                            <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
+                                                            <form action="{{ route('admin.categories.destroy', $subcategory->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger">Sim, Excluir</button>
@@ -80,13 +82,13 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">Nenhuma Categoria encontrada</td>
+                                        <td colspan="5">Nenhuma Subcategoria encontrada</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                            {{ $categories->links('pagination.custom') }}
+                            {{ $subcategories->links('pagination.custom') }}
                         </div>
                     </div>
                 </div>

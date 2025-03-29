@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -12,9 +13,17 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, SubCategory $subcategory)
     {
-        //
+        $search = $request->input('search');
+
+        $subcategories = $subcategory->when($search, function ($query, $search) {
+            return $query->where('name', 'like', "%{$search}%")
+                ->orWhere('description', 'like', "%{$search}%")
+                ->orWhere('slug', 'like', "%{$search}%");
+        })->paginate(10);
+
+        return view('admin.subcategory.index', compact('subcategories'));
     }
 
     /**

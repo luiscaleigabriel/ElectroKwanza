@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashController;
+use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,9 @@ Route::middleware(['auth', 'admin'])->group(
         Route::get('/admin/categories/{id}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
         Route::put('/admin/categories/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
         Route::delete('/admin/categories/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+
+        // SubCategories operaction
+        Route::get('/admin/subcategories', [SubCategoryController::class, 'index'])->name('admin.subcategories');
 
     }
 );
