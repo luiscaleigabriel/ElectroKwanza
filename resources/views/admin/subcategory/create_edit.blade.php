@@ -27,10 +27,18 @@
                     <div class="form-floating mb-3">
                         <select class="form-select @error('category_id') is-invalid @enderror" name="category_id"
                             aria-label="Default select example">
-                            <option disabled selected>Selecione a categoria</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
+                            @if (isset($subcategory))
+                                <option disabled >Selecione a categoria</option>
+                                @foreach ($categories as $category)
+                                    <option {{ $category->id == $subcategory->category_id ? 'selected' : '' }}
+                                        value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            @else
+                                <option disabled selected>Selecione a categoria</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            @endif
                         </select>
                         @error('category_id')
                             <div class="invalid-feedback">{{ $message }}</div>
