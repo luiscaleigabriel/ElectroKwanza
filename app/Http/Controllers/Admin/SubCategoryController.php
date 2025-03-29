@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\SubCategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -13,8 +15,10 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, SubCategory $subcategory)
+    public function index(Request $request, SubCategory $subcategory, Category $category)
     {
+        $categories = $category->all();
+
         $search = $request->input('search');
 
         $subcategories = $subcategory->when($search, function ($query, $search) {
@@ -23,7 +27,7 @@ class SubCategoryController extends Controller
                 ->orWhere('slug', 'like', "%{$search}%");
         })->paginate(10);
 
-        return view('admin.subcategory.index', compact('subcategories'));
+        return view('admin.subcategory.index', compact('subcategories', 'categories'));
     }
 
     /**
@@ -31,9 +35,10 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category)
     {
-        //
+        $categories = $category->all();
+        return view('admin.subcategory.create_edit', compact('categories'));
     }
 
     /**
@@ -42,9 +47,34 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, SubCategory $subcategory)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:20|unique:categories,name',
+            'category_id' => 'required',
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.max' => 'O campo nome tem de ter no maximo 15 caracteres',
+            'name.unique' => 'A categoria que quer cadastrar já existe',
+            'description.required' => 'O campo descrição é obrigatório',
+            'category_id.required' => 'O campo categoria é obrigatório',
+        ]);
+
+
+        $slug = Str::slug($request->input('name'));
+
+        $created = $subcategory->create([
+            'name' => $request->input('name'),
+            'slug' => $slug,
+            'description' => $request->input('description'),
+            'category_id' => $request->input('category_id'),
+        ]);
+
+        if ($created) {
+            return redirect()->route('admin.subcategories')->with('success', 'Subcategoria criada com sucesso!');
+        } else {
+            return redirect()->route('admin.subcategories')->with('error', 'Ocorreu um erro ao tentar criar a subcategoria tente novamente!');
+        }
     }
 
     /**
@@ -53,9 +83,10 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, SubCategory $subcategory)
     {
-        //
+        $subcategory = $subcategory->findOrFail($id);
+        return response()->json($subcategory);
     }
 
     /**
@@ -64,9 +95,11 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, SubCategory $subcategory, Category $category)
     {
-        //
+        $categories = $category->all();
+        $subcategory = $subcategory->findOrFail($id);
+        return view('admin.subcategory.create_edit', compact('subcategory', 'categories'));
     }
 
     /**
@@ -76,9 +109,33 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, SubCategory $subcategory, $id)
     {
-        //
+        $subcategory = $subcategory->findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:20|unique:categories,name',
+            'category_id' => 'required',
+        ], [
+            'name.required' => 'O campo nome é obrigatório',
+            'name.max' => 'O campo nome tem de ter no maximo 15 caracteres',
+            'name.unique' => 'A categoria que quer cadastrar já existe',
+            'description.required' => 'O campo descrição é obrigatório',
+            'category_id.required' => 'O campo categoria é obrigatório',
+        ]);
+
+        $updated = $subcategory->update([
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name')),
+            'description' => $request->input('description'),
+            'category_id' => $request->input('category_id'),
+        ]);
+
+        if ($updated) {
+            return redirect()->route('admin.subcategories')->with('success', 'Categoria atualizada com sucesso!');
+        } else {
+            return redirect()->route('admin.subcategories')->with('error', 'Ocorreu um erro ao tentar atualizar a categoria tente novamente!');
+        }
     }
 
     /**
@@ -87,8 +144,15 @@ class SubCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, SubCategory $subcategory)
     {
-        //
+        $subcategory = $subcategory->findOrFail($id);
+
+        try {
+            $subcategory->delete();
+            return redirect()->route('admin.subcategories')->with('success', 'Subcategoria deletada com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.subcategories')->with('error', 'Erro ao deletar a Subcategoria.');
+        }
     }
 }
