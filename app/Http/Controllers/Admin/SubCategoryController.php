@@ -50,12 +50,12 @@ class SubCategoryController extends Controller
     public function store(Request $request, SubCategory $subcategory)
     {
         $request->validate([
-            'name' => 'required|string|max:20|unique:categories,name',
+            'name' => 'required|string|max:20|unique:subcategories,name',
             'category_id' => 'required',
         ], [
             'name.required' => 'O campo nome é obrigatório',
             'name.max' => 'O campo nome tem de ter no maximo 15 caracteres',
-            'name.unique' => 'A categoria que quer cadastrar já existe',
+            'name.unique' => 'A subcategoria que quer cadastrar já existe',
             'description.required' => 'O campo descrição é obrigatório',
             'category_id.required' => 'O campo categoria é obrigatório',
         ]);
@@ -114,7 +114,7 @@ class SubCategoryController extends Controller
         $subcategory = $subcategory->findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:20|unique:categories,name',
+            'name' => 'required|string|max:20|unique:subcategories,name',
             'category_id' => 'required',
         ], [
             'name.required' => 'O campo nome é obrigatório',
