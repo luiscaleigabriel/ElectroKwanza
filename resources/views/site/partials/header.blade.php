@@ -31,7 +31,7 @@
                 <div class="col-lg-3 col-md-3 col-7">
                     <!-- Start Header Logo -->
                     <a class="navbar-brand" href="index.html">
-                    <img src="{{ asset('assets/imagens/logo.png') }}" alt="Logo">
+                        <img src="{{ asset('assets/imagens/logo.png') }}" alt="Logo">
                     </a>
                     <!-- End Header Logo -->
                 </div>
@@ -44,11 +44,9 @@
                                 <div class="select-position">
                                     <select id="select1">
                                         <option selected>Todos</option>
-                                        <option value="1">option 01</option>
-                                        <option value="2">option 02</option>
-                                        <option value="3">option 03</option>
-                                        <option value="4">option 04</option>
-                                        <option value="5">option 05</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -146,31 +144,20 @@
                     <div class="mega-category-menu">
                         <span class="cat-button"><i class="lni lni-menu"></i>Todas Categorias</span>
                         <ul class="sub-category">
-                            <li><a href="product-grids.html">Electronics <i class="lni lni-chevron-right"></i></a>
-                                <ul class="inner-sub-category">
-                                    <li><a href="product-grids.html">Digital Cameras</a></li>
-                                    <li><a href="product-grids.html">Camcorders</a></li>
-                                    <li><a href="product-grids.html">Camera Drones</a></li>
-                                    <li><a href="product-grids.html">Smart Watches</a></li>
-                                    <li><a href="product-grids.html">Headphones</a></li>
-                                    <li><a href="product-grids.html">MP3 Players</a></li>
-                                    <li><a href="product-grids.html">Microphones</a></li>
-                                    <li><a href="product-grids.html">Chargers</a></li>
-                                    <li><a href="product-grids.html">Batteries</a></li>
-                                    <li><a href="product-grids.html">Cables & Adapters</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="product-grids.html">accessories</a></li>
-                            <li><a href="product-grids.html">Televisions</a></li>
-                            <li><a href="product-grids.html">best selling</a></li>
-                            <li><a href="product-grids.html">top 100 offer</a></li>
-                            <li><a href="product-grids.html">sunglass</a></li>
-                            <li><a href="product-grids.html">watch</a></li>
-                            <li><a href="product-grids.html">man’s product</a></li>
-                            <li><a href="product-grids.html">Home Audio & Theater</a></li>
-                            <li><a href="product-grids.html">Computers & Tablets </a></li>
-                            <li><a href="product-grids.html">Video Games </a></li>
-                            <li><a href="product-grids.html">Home Appliances </a></li>
+                            @foreach ($categories as $category)
+                                <li><a href="{{ route('home.loja', $category->slug) }}">{{ $category->name }} <i
+                                            class="lni lni-chevron-right"></i></a>
+                                    <ul class="inner-sub-category">
+                                        @foreach ($subcategories as $subcategory)
+                                            @if ($category->id == $subcategory->category_id)
+                                                <li><a
+                                                        href="{{ route('home.loja', $subcategory->slug) }}">{{ $subcategory->name }}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     <!-- End Mega Category Menu -->

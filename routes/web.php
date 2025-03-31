@@ -7,18 +7,19 @@ use App\Http\Controllers\Admin\DashController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Site Routes
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('site.home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/store/{slug}', [HomeController::class, 'loja'])->name('home.loja');
+
 
 /*
 |--------------------------------------------------------------------------
