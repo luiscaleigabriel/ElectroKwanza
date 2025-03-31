@@ -24,7 +24,7 @@
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="file" name="image" class="form-control @error('name') is-invalid @enderror"
+                        <input type="file" name="image" class="form-control @error('image') is-invalid @enderror"
                             id="image" accept="image/*" onchange="previewImage(event)">
                         <label for="floatingInput">Imagem da Marca</label>
                         @error('image')

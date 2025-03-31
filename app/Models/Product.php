@@ -16,15 +16,15 @@ class Product extends Model
         'brand_id', 'category_id', 'subcategory_id'
     ];
 
-    public function categories() {
+    public function category() {
         return $this->belongsTo(Category::class);
     }
 
-    public function subcategories() {
+    public function subcategory() {
         return $this->belongsTo(SubCategory::class);
     }
 
-    public function brands() {
+    public function brand() {
         return $this->belongsTo(Brand::class);
     }
 

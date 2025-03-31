@@ -18,11 +18,11 @@ class SubCategory extends Model
         'category_id'
     ];
 
-    public function categories() {
+    public function category() {
         return $this->belongsTo(Category::class);
     }
 
-    public function products() {
+    public function product() {
         return $this->hasMany(Product::class);
     }
 }
