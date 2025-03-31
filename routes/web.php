@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
@@ -70,13 +71,13 @@ Route::middleware(['auth', 'admin'])->group(
         Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('admin.brands.destroy');
 
         // Product operaction
-        Route::get('/admin/brands', [BrandController::class, 'index'])->name('admin.brands');
-        Route::get('/admin/create/brands', [BrandController::class, 'create'])->name('admin.brands.create');
-        Route::get('/admin/brands/{id}', [BrandController::class, 'show'])->name('admin.brands.show');
-        Route::post('/admin/create/brand', [BrandController::class, 'store'])->name('admin.brands.store');
-        Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('admin.brands.edit');
-        Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('admin.brands.update');
-        Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('admin.brands.destroy');
+        Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products');
+        Route::get('/admin/create/products', [ProductController::class, 'create'])->name('admin.products.create');
+        Route::get('/admin/products/{id}', [ProductController::class, 'show'])->name('admin.products.show');
+        Route::post('/admin/create/product', [ProductController::class, 'store'])->name('admin.products.store');
+        Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
+        Route::put('/admin/product/{id}', [ProductController::class, 'update'])->name('admin.products.update');
+        Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
 
     }
 );
