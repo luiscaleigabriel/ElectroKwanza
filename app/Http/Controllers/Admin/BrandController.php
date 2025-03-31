@@ -94,9 +94,10 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Brand $brand)
     {
-        //
+        $brand = $brand->findOrFail($id);
+        return view('admin.brands.create_edit', compact('brand'));
     }
 
     /**
@@ -106,9 +107,40 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Brand $brand, $id)
     {
-        //
+        $brand = $brand->findOrFail($id);
+
+        $request->validate([
+            'name' => 'max:255|unique:brands,name,' . $brand->id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+        ], [
+            'image.image' => 'O arquivo deve ser uma imagem.',
+            'image.mimes' => 'A imagem deve ser dos tipos: jpeg, png, jpg, gif ou svg.',
+            'name.unique' => 'O nome da marca já existe ',
+            'image.max' => 'A imagem não pode exceder 4MB.',
+        ]);
+
+        $data = [
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name'))
+        ];
+
+        if ($request->hasFile('image')) {
+            // Remove a imagem antiga se existir
+            if ($brand->image && Storage::disk('public')->exists($brand->image)) {
+                Storage::disk('public')->delete($brand->image);
+            }
+            // Armazena a nova imagem
+            $data['image'] = $request->file('image')->store('brands','public');
+        }
+        $updated = $brand->update($data);
+
+        if ($updated) {
+            return redirect()->route('admin.brands')->with('success', 'Marca atualizada com sucesso!');
+        } else {
+            return redirect()->route('admin.brands')->with('error', 'Ocorreu um erro ao tentar atualizar a marca tente novamente!');
+        }
     }
 
     /**
@@ -117,8 +149,19 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Brand $brand)
     {
-        //
+        if ($brand->image && Storage::disk('public')->exists($brand->image)) {
+            Storage::disk('public')->delete($brand->image);
+        }
+
+        $brand = $brand->findOrFail($id);
+
+        try {
+            $brand->delete();
+            return redirect()->route('admin.brands')->with('success', 'Marca deletada com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.brands')->with('error', 'Erro ao deletar a marca.');
+        }
     }
 }

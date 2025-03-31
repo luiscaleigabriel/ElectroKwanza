@@ -17,15 +17,15 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                             id="floatingInput" placeholder="Nome da Categoria"
-                            value="{{ old('name', isset($category) ? $category->name : '') }}">
+                            value="{{ old('name', isset($brand) ? $brand->name : '') }}">
                         <label for="floatingInput">Nome</label>
                         @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="file" name="image" class="form-control @error('name') is-invalid @enderror" id="image" accept="image/*"
-                            onchange="previewImage(event)">
+                        <input type="file" name="image" class="form-control @error('name') is-invalid @enderror"
+                            id="image" accept="image/*" onchange="previewImage(event)">
                         <label for="floatingInput">Imagem da Marca</label>
                         @error('image')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -33,8 +33,9 @@
                     </div>
                     <div class="form-floating mb-3">
                         <!-- Área onde a pré-visualização será exibida -->
-                        <img id="imagePreview" src="{{ old('image', isset($brand) ? $brand->image : '#') }}" alt="Pré-visualização da Imagem"
-                            style="display: none; max-width: 200px; margin-top: 10px;">
+                        <img id="imagePreview" src="{{ $brand->image ? asset('storage/' . $brand->image) : '#' }}"
+                            alt="Pré-visualização da Imagem"
+                            style="max-width: 200px; margin-top: 10px; {{ $brand->image ? '' : 'display: none;' }}">
                     </div>
                     <button class="btn btn-primary m-2" type="submit">{{ isset($brand) ? 'Atualizar' : 'Salvar' }}</button>
                 </div>
