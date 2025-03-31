@@ -151,11 +151,12 @@ class BrandController extends Controller
      */
     public function destroy($id, Brand $brand)
     {
+
+        $brand = $brand->findOrFail($id);
+
         if ($brand->image && Storage::disk('public')->exists($brand->image)) {
             Storage::disk('public')->delete($brand->image);
         }
-
-        $brand = $brand->findOrFail($id);
 
         try {
             $brand->delete();

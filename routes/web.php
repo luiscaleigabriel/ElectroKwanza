@@ -29,7 +29,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::prefix('auth')->name('auth.')->group(
     function() {
         Route::post('/login', [AuthController::class, 'login'])->name('login');
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     }
 );
 
@@ -61,6 +61,15 @@ Route::middleware(['auth', 'admin'])->group(
         Route::delete('/admin/subcategories/{id}', [SubCategoryController::class, 'destroy'])->name('admin.subcategories.destroy');
 
         // Brands operaction
+        Route::get('/admin/brands', [BrandController::class, 'index'])->name('admin.brands');
+        Route::get('/admin/create/brands', [BrandController::class, 'create'])->name('admin.brands.create');
+        Route::get('/admin/brands/{id}', [BrandController::class, 'show'])->name('admin.brands.show');
+        Route::post('/admin/create/brand', [BrandController::class, 'store'])->name('admin.brands.store');
+        Route::get('/admin/brands/{id}/edit', [BrandController::class, 'edit'])->name('admin.brands.edit');
+        Route::put('/admin/brands/{id}', [BrandController::class, 'update'])->name('admin.brands.update');
+        Route::delete('/admin/brands/{id}', [BrandController::class, 'destroy'])->name('admin.brands.destroy');
+
+        // Product operaction
         Route::get('/admin/brands', [BrandController::class, 'index'])->name('admin.brands');
         Route::get('/admin/create/brands', [BrandController::class, 'create'])->name('admin.brands.create');
         Route::get('/admin/brands/{id}', [BrandController::class, 'show'])->name('admin.brands.show');

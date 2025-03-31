@@ -33,9 +33,9 @@
                     </div>
                     <div class="form-floating mb-3">
                         <!-- Área onde a pré-visualização será exibida -->
-                        <img id="imagePreview" src="{{ $brand->image ? asset('storage/' . $brand->image) : '#' }}"
+                        <img id="imagePreview" src="{{ isset($brand) ? $brand->image ? asset('storage/' . $brand->image) : '#' : '#' }}"
                             alt="Pré-visualização da Imagem"
-                            style="max-width: 200px; margin-top: 10px; {{ $brand->image ? '' : 'display: none;' }}">
+                            style="max-width: 200px; margin-top: 10px; {{ isset($brand) ? $brand->image ? '' : 'display: none; : ' : 'display: none;' }}">
                     </div>
                     <button class="btn btn-primary m-2" type="submit">{{ isset($brand) ? 'Atualizar' : 'Salvar' }}</button>
                 </div>
