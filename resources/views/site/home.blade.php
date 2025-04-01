@@ -589,7 +589,7 @@
                     </div>
                     <div class="media-body">
                         <h5>Entrega Grátis</h5>
-                        <span>Em encomendas de até 100.000,00Kz</span>
+                        <span>Pra encomendas de até 100.000,00Kz</span>
                     </div>
                 </li>
                 <!-- Money Return -->

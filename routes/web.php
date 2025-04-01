@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -41,6 +42,12 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 Route::post('/cart/increase/{rowId}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
 Route::post('/cart/decrease/{rowId}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 
+/*
+|--------------------------------------------------------------------------
+| Checkout Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 
 /*
 |--------------------------------------------------------------------------

@@ -97,6 +97,10 @@
                     </div>
                 @endforeach
 
+                @if (count($cartItems) < 1)
+                    <p style="padding: 40px; font-size: 1.1rem;">Nenhum produto adicionado ao carrinho</p>
+                @endif
+
             </div>
             <div class="row">
                 <div class="col-12">
@@ -106,14 +110,13 @@
                             <div class="col-lg-4 col-md-6 col-12">
                                 <div class="right">
                                     <ul>
-                                        <li>SubTotal<span>$2560.00</span></li>
-                                        <li>Entrega<span>{{  }}</span></li>
-                                        <li>You Save<span>$29.00</span></li>
-                                        <li class="last">You Pay<span>$2531.00</span></li>
+                                        <li>SubTotal<span>{{ number_format($cartTotal, 2, ',', '.') }}Kz</span></li>
+                                        <li>Entrega<span>{{ $cartTotal > 0 ? $cartTotal > 100000 ? 'Gratis' : '3.000,00Kz' : '0,00Kz' }}</span></li>
+                                        <li class="last">Total<span>{{ $cartTotal > 0 ? $cartTotal > 100000 ? number_format($cartTotal, 2, ',', '.') : number_format($cartTotal + 3000, 2, ',', '.') : '0,00' }}Kz</span></li>
                                     </ul>
                                     <div class="button">
-                                        <a href="checkout.html" class="btn">Checkout</a>
-                                        <a href="product-grids.html" class="btn btn-alt">Continue shopping</a>
+                                        <a  href="{{ route('checkout.index') }}" class="btn {{ $cartTotal < 1 ? 'disabled' : '' }}">Checkout</a>
+                                        <a href="{{ route('home.loja') }}" class="btn btn-alt">Continuar na Loja</a>
                                     </div>
                                 </div>
                             </div>

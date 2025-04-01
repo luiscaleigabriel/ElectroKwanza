@@ -111,7 +111,7 @@
                                                 Kz</span>
                                         </div>
                                         <div class="button">
-                                            <a href="#" class="btn animate">Checkout</a>
+                                            <a href="{{ route('checkout.index') }}" class="btn animate {{ $cartTotal < 1 ? 'disabled' : '' }}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
