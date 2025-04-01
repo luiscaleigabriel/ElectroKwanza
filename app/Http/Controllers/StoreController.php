@@ -34,7 +34,7 @@ class StoreController extends Controller
                         $q->where('name', 'LIKE', "%{$search}%");
                     });
             })->paginate(10);
-        } elseif ($slug) {
+        } elseif (!empty($slug)) {
             $products = $product->when($search, function ($query, $slug) {
                 return $query->where('name', 'like', "%{$slug}%")
                     ->orWhere('slug', 'like', "%{$slug}%")
@@ -43,7 +43,7 @@ class StoreController extends Controller
                         $q->where('name', 'LIKE', "%{$slug}%");
                     })
                     ->orWhereHas('subcategory', function ($q) use ($slug) {
-                        $q->where('name', 'LIKE', "%{$slug}%");
+                        $q->where('name', 'LIKE', "%{$slug}%")->orW;
                     })
                     ->orWhereHas('brand', function ($q) use ($slug) {
                         $q->where('name', 'LIKE', "%{$slug}%");

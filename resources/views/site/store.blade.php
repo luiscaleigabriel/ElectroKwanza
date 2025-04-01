@@ -42,7 +42,8 @@
                             <ul class="list">
                                 @foreach ($categories as $category)
                                     <li>
-                                        <a href="{{ route('home.loja', $category->slug) }}">{{ $category->name }}</a>
+                                        <a
+                                            href="{{ route('home.loja') }}?search={{ $category->name }}">{{ $category->name }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -80,7 +81,7 @@
                             <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
                                 aria-labelledby="nav-grid-tab">
                                 <div class="row">
-                                    @foreach ($products as $destaque)
+                                    @forelse ($products as $destaque)
                                         <div class="col-lg-4 col-md-6 col-12">
                                             <!-- Start Single Product -->
                                             <div class="single-product">
@@ -116,7 +117,9 @@
                                             </div>
                                             <!-- End Single Product -->
                                         </div>
-                                    @endforeach
+                                    @empty
+                                        <h4>Desculpe, Nenhum produto encontrado!</h4>
+                                    @endforelse
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
@@ -180,14 +183,7 @@
                                     <div class="col-12">
                                         <!-- Pagination -->
                                         <div class="pagination left">
-                                            <ul class="pagination-list">
-                                                <li><a href="javascript:void(0)">1</a></li>
-                                                <li class="active"><a href="javascript:void(0)">2</a></li>
-                                                <li><a href="javascript:void(0)">3</a></li>
-                                                <li><a href="javascript:void(0)">4</a></li>
-                                                <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a>
-                                                </li>
-                                            </ul>
+                                            {{ $products->links('pagination.custom') }}
                                         </div>
                                         <!--/ End Pagination -->
                                     </div>

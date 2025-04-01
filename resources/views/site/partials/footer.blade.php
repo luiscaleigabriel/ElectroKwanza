@@ -19,10 +19,10 @@
                                 <span>Obtenha todas as últimas informações, vendas e ofertas.</span>
                             </h4>
                             <div class="newsletter-form-head">
-                                <form action="#" method="get" class="newsletter-form">
+                                <form class="newsletter-form">
                                     <input name="EMAIL" placeholder="Digite seu email aqui..." type="email">
                                     <div class="button">
-                                        <button class="btn">Subscrever<span class="dir-part"></span></button>
+                                        <button type="button" class="btn">Subscrever<span class="dir-part"></span></button>
                                     </div>
                                 </form>
                             </div>
@@ -71,11 +71,9 @@
                         <div class="single-footer f-link">
                             <h3>Categorias</h3>
                             <ul>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
+                                @foreach ($categories as $category)
+                                    <li><a href="{{ route('home.loja') }}?search={{$category->slug}}">{{$category->name}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                         <!-- End Single Widget -->
@@ -85,11 +83,11 @@
                         <div class="single-footer f-link">
                             <h3>Outros</h3>
                             <ul>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
-                                <li><a href="#">Computadores & Acessorios</a></li>
+                                <li><a href="{{ route('home.loja') }}?search=electrodomesticos">Electrodomesticos</a></li>
+                                <li><a href="{{ route('home.loja') }}?search=Computadores">Computadores</a></li>
+                                <li><a href="{{ route('home.loja') }}?search=Acessorios">Acessorios</a></li>
+                                <li><a href="{{ route('home.loja') }}?search=a">Diversos</a></li>
+                                <li><a href="{{ route('home.loja') }}?search=Hp">Todos</a></li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->
@@ -107,7 +105,7 @@
                     <div class="col-lg-4 col-12">
                         <div class="payment-gateway">
                             <span>Nós aceitamos:</span>
-                            <img src="imagens/credit-cards-footer.png" alt="#">
+                            <img src="assets/imagens/credit-cards-footer.png" alt="#">
                         </div>
                     </div>
                     <div class="col-lg-4 col-12">
