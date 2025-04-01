@@ -173,16 +173,16 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a href="index.html" aria-label="Toggle navigation">Home</a>
+                                    <a href="{{ route('home.index') }}" aria-label="Toggle navigation">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="store.html" aria-label="Toggle navigation">Loja</a>
+                                    <a href="{{ route('home.loja', 'all') }}" aria-label="Toggle navigation">Loja</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="about.html" aria-label="Toggle navigation">Sobre</a>
+                                    <a href="{{ route('home.about') }}" aria-label="Toggle navigation">Sobre</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="contact.html" aria-label="Toggle navigation">Contactos</a>
+                                    <a href="{{ route('home.contact') }}" aria-label="Toggle navigation">Contactos</a>
                                 </li>
                             </ul>
                         </div> <!-- navbar collapse -->

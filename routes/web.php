@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Admin\DashController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController as ControllersProductController;
@@ -19,8 +21,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/about', [AboutController::class, 'index'])->name('home.about');
+Route::get('/contact', [ContactController::class, 'index'])->name('home.contact');
 Route::get('/store/{slug}', [HomeController::class, 'loja'])->name('home.loja');
-
 Route::get('/products/{id}/details', [ControllersProductController::class, 'details'])->name('product.details');
 
 

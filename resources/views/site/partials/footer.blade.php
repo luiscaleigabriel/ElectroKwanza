@@ -58,10 +58,10 @@
                         <div class="single-footer f-link">
                             <h3>Informações</h3>
                             <ul>
-                                <li><a href="#">Sobre</a></li>
-                                <li><a href="#">Contactos</a></li>
-                                <li><a href="#">Localização</a></li>
-                                <li><a href="#">FAQs Page</a></li>
+                                <li><a href="{{ route('home.about') }}">Sobre</a></li>
+                                <li><a href="{{ route('home.contact') }}">Contactos</a></li>
+                                <li><a href="{{ route('home.contact') }}">Localização</a></li>
+                                <li><a href="{{ route('home.about') }}">Puliticas & Privacidade</a></li>
                             </ul>
                         </div>
                         <!-- End Single Widget -->
