@@ -14,8 +14,9 @@ class HomeController extends Controller
         $categories = $category->all();
         $subcategories = $subcategory->all();
         $destaques = $product->paginate(8);
+        $especiais = $product->paginate(3);
 
-        return view('site.home', compact('categories', 'subcategories', 'destaques'));
+        return view('site.home', compact('categories', 'subcategories', 'destaques', 'especiais'));
     }
 
     public function loja(Category $category, SubCategory $subcategory)
