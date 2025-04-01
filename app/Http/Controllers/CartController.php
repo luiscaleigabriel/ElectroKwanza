@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -19,12 +21,13 @@ class CartController extends Controller
         Cart::add([
             'id' => $product->id,
             'name' => $product->name,
-            'qty' => $request->quantity,
+            'qty' => $request->quantity ?? 1,
             'price' => $product->price,
-            'options' => ['image' => $product->image ?? null]
+            'weight' => 0, // Adicione essa linha para evitar o erro.
+            'options' => ['image' => $product->image1 ?? null]
         ]);
 
-        return redirect()->route('cart.index')->with('success', 'Produto adicionado ao carrinho!');
+        return redirect()->back()->with('success', 'Produto adicionado ao carrinho com sucesso!');
     }
 
     public function update(Request $request)
@@ -33,10 +36,10 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Carrinho atualizado!');
     }
 
-    public function remove(Request $request)
+    public function remove($rowId)
     {
-        Cart::remove($request->rowId);
-        return redirect()->route('cart.index')->with('success', 'Produto removido do carrinho!');
+        Cart::remove($rowId);
+        return redirect()->back()->with('success', 'Produto removido do carrinho!');
     }
 
     public function clear()

@@ -77,49 +77,46 @@
                                 </a>
                             </div>
                             <div class="cart-items">
-                                <a href="#" class="main-btn">
+                                <a href="{{ route('cart.index') }}" class="main-btn">
                                     <i class="lni lni-cart"></i>
-                                    <span class="total-items">2</span>
+                                    <span class="total-items">{{ $cartCount }}</span>
                                 </a>
                                 <!-- Shopping Item -->
                                 <div class="shopping-item">
                                     <div class="dropdown-cart-header">
-                                        <span>2 Items</span>
-                                        <a href="cart.html">Ver Carrinho</a>
+                                        <span>{{ $cartCount }} Items</span>
+                                        <a href="{{ route('cart.index') }}">Ver Carrinho</a>
                                     </div>
                                     <ul class="shopping-list">
-                                        <li>
-                                            <a href="#" class="remove" title="Remove this item"><i
-                                                    class="lni lni-close"></i></a>
-                                            <div class="cart-img-head">
-                                                <a class="cart-img" href="product-details.html"><img
-                                                        src="imagens/products/product-1.jpg" alt="#"></a>
-                                            </div>
-
-                                            <div class="content">
-                                                <h4><a href="product-details.html">
-                                                        Apple Watch 6</a></h4>
-                                                <p class="quantity">1x - <span class="amount">10.000,00 Kz</span>
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="remove" title="Remove this item"><i
-                                                    class="lni lni-close"></i></a>
-                                            <div class="cart-img-head">
-                                                <a class="cart-img" href="product-details.html"><img
-                                                        src="imagens/products/product-8.jpg" alt="#"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                                <p class="quantity">1x - <span class="amount">10.000,00Kz</span></p>
-                                            </div>
-                                        </li>
+                                        @foreach ($cartItems as $item)
+                                            <li>
+                                                <a href="{{ route('cart.remove', $item->rowId) }}" class="remove"
+                                                    title="Remover este item">
+                                                    <i class="lni lni-close"></i>
+                                                </a>
+                                                <div class="cart-img-head">
+                                                    <a class="cart-img"
+                                                        href="{{ route('product.details', $item->id) }}">
+                                                        <img src="{{ asset('storage/' . ($item->options->image ?? 'default.jpg')) }}"
+                                                            alt="{{ $item->name }}">
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4><a
+                                                            href="{{ route('product.details', $item->id) }}">{{ $item->name }}</a>
+                                                    </h4>
+                                                    <p class="quantity">{{ $item->qty }}x - <span
+                                                            class="amount">{{ number_format($item->price, 2, ',', '.') }}
+                                                            Kz</span></p>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                     <div class="bottom">
                                         <div class="total">
                                             <span>Total</span>
-                                            <span class="total-amount">20.000,00Kz</span>
+                                            <span class="total-amount">{{ number_format($cartTotal, 2, ',', '.') }}
+                                                Kz</span>
                                         </div>
                                         <div class="button">
                                             <a href="#" class="btn animate">Checkout</a>
@@ -182,7 +179,8 @@
                                     <a href="{{ route('home.about') }}" aria-label="Toggle navigation">Sobre</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('home.contact') }}" aria-label="Toggle navigation">Contactos</a>
+                                    <a href="{{ route('home.contact') }}"
+                                        aria-label="Toggle navigation">Contactos</a>
                                 </li>
                             </ul>
                         </div> <!-- navbar collapse -->
