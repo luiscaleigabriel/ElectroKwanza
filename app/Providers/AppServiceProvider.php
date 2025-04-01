@@ -29,7 +29,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'cartItems' => Cart::content(),
                 'cartCount' => Cart::content()->count(),
-                'cartTotal' => Cart::totalFloat(),
+                'cartTotal' => Cart::content()->sum(function ($item) {
+                    return $item->price * $item->qty;
+                }),
             ]);
         });
     }

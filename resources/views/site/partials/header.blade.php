@@ -42,7 +42,8 @@
                         <!-- navbar search start -->
                         <div class="navbar-search search-style-5">
                             <div class="search-input">
-                                <input class="form-control me-2" type="search" name="search" placeholder="Buscar por..." value="{{ request('search') }}" aria-label="Search">
+                                <input class="form-control me-2" type="search" name="search"
+                                    placeholder="Buscar por..." value="{{ request('search') }}" aria-label="Search">
                             </div>
                             <div class="search-btn">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
@@ -133,13 +134,13 @@
                         <span class="cat-button"><i class="lni lni-menu"></i>Todas Categorias</span>
                         <ul class="sub-category">
                             @foreach ($categories as $category)
-                                <li><a href="{{ route('home.loja', $category->slug) }}">{{ $category->name }} <i
-                                            class="lni lni-chevron-right"></i></a>
+                                <li><a href="{{ route('home.loja') }}?search={{ $category->name }}">{{ $category->name }}
+                                        <i class="lni lni-chevron-right"></i></a>
                                     <ul class="inner-sub-category">
                                         @foreach ($subcategories as $subcategory)
                                             @if ($category->id == $subcategory->category_id)
                                                 <li><a
-                                                        href="{{ route('home.loja', $subcategory->slug) }}">{{ $subcategory->name }}</a>
+                                                        href="{{ route('home.loja') }}?search={{ $subcategory->name }}">{{ $subcategory->name }}</a>
                                                 </li>
                                             @endif
                                         @endforeach
@@ -202,3 +203,5 @@
     <!-- End Header Bottom -->
 </header>
 <!-- End Header Area -->
+
+

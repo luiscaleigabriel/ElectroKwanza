@@ -38,6 +38,8 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::get('/cart/remove/{rowId}', [CartController::class, 'remove'])->name('cart.remove');
 Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+Route::post('/cart/increase/{rowId}', [CartController::class, 'increaseQuantity'])->name('cart.increase');
+Route::post('/cart/decrease/{rowId}', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 
 
 /*
