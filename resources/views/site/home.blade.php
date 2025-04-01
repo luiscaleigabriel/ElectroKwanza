@@ -377,13 +377,14 @@
                                 <!-- Start Single Product -->
                                 <div class="single-product">
                                     <div class="product-image">
-                                        <img src="{{ asset('storage/'.$especial->image1) }}" alt="#">
+                                        <img src="{{ asset('storage/' . $especial->image1) }}" alt="#">
                                         <span class="sale-tag">-25%</span>
                                     </div>
                                     <div class="product-info">
                                         <span class="category">{{ $especial->category->name }}</span>
                                         <h4 class="title">
-                                            <a href="{{ route('product.details', $especial->id) }}">{{ $especial->name }}</a>
+                                            <a
+                                                href="{{ route('product.details', $especial->id) }}">{{ $especial->name }}</a>
                                         </h4>
                                         <div class="price d-flex align-items-center justify-content-between">
                                             <span>{{ number_format($especial->price, 2, ',', '.') }}Kz</span>
@@ -397,7 +398,8 @@
                                             </a>
                                         </div>
                                         <div style="margin-top: -10px; margin-left: -8px;" class="price">
-                                            <span class="discount-price">{{ number_format($especial->price + 10000, 2, ',', '.') }}Kz</span>
+                                            <span
+                                                class="discount-price">{{ number_format($especial->price + 10000, 2, ',', '.') }}Kz</span>
                                         </div>
                                     </div>
                                 </div>
@@ -409,11 +411,10 @@
                     <div class="single-banner right"
                         style="background-image:url('assets/imagens/banner/banner-3-bg.jpg');margin-top: 30px;">
                         <div class="content">
-                            <h2>Samsung Notebook 9 </h2>
-                            <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                incididunt ut labore.</p>
+                            <h2>{{ $notbookSansung->name }}</h2>
+                            <p>{{ $notbookSansung->description }}</p>
                             <div class="price">
-                                <span>1.000.000,00Kz</span>
+                                <span>{{ number_format($notbookSansung->price, 2, ',', '.') }}Kz</span>
                             </div>
                             <div class="button">
                                 <a href="product-grids.html" class="btn">Comprar Agora</a>
@@ -425,14 +426,14 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="offer-content">
                         <div class="image">
-                            <img src="assets/imagens/offer-image.jpg" alt="#">
+                            <img src="{{ asset('storage/' . $escutadorPromo->image1) }}" alt="Produto">
                             <span class="sale-tag">-50%</span>
                         </div>
                         <div class="text">
-                            <h2><a href="product-grids.html">Bluetooth Headphone</a></h2>
+                            <h2><a href="product-grids.html">{{ $escutadorPromo->name }}</a></h2>
 
                             <div class="price d-flex align-items-center justify-content-between">
-                                <span>30.000,00Kz</span>
+                                <span>{{ number_format($escutadorPromo->price, 2, ',', '.') }}Kz</span>
                                 <a href="#" title="Add ao Carrinho" id="btn-add-to-cart">
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                         viewBox="0 0 68 64">
@@ -443,10 +444,10 @@
                                 </a>
                             </div>
                             <div class="price">
-                                <span style="margin-left: 0px;" class="discount-price">60.000,00Kz</span>
+                                <span style="margin-left: 0px;"
+                                    class="discount-price">{{ number_format($escutadorPromo->price + 10000, 2, ',', '.') }}Kz</span>
                             </div>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry incididunt ut
-                                eiusmod tempor labores.</p>
+                            <p>{{ $escutadorPromo->description }}</p>
                         </div>
                         <div class="box-head">
                             <div class="box">
@@ -621,30 +622,11 @@
             </div>
             <div class="brands-logo-wrapper">
                 <div class="brands-logo-carousel d-flex align-items-center justify-content-between">
-                    <div class="brand-logo">
-                        <img src="imagens/brands/01.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/02.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/03.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/04.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/05.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/06.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/02.png" alt="#">
-                    </div>
-                    <div class="brand-logo">
-                        <img src="imagens/brands/04.png" alt="#">
-                    </div>
+                    @foreach ($brands as $brand)
+                        <div class="brand-logo">
+                            <img src="{{ asset('storage/' . $brand->image) }}" alt="#">
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

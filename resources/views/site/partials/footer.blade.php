@@ -19,7 +19,7 @@
                                 <span>Obtenha todas as últimas informações, vendas e ofertas.</span>
                             </h4>
                             <div class="newsletter-form-head">
-                                <form action="#" method="get" target="_blank" class="newsletter-form">
+                                <form action="#" method="get" class="newsletter-form">
                                     <input name="EMAIL" placeholder="Digite seu email aqui..." type="email">
                                     <div class="button">
                                         <button class="btn">Subscrever<span class="dir-part"></span></button>

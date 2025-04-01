@@ -33,7 +33,7 @@
                             <h3>Entrar Agora</h3>
                             <p>Pode fazer login usando a sua conta do facebook ou endereço de e-mail.</p>
                         </div>
-                        {{-- <div class="social-login">
+                        <div class="social-login">
                             <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12"><a class="btn facebook-btn"
                                         href="#"><i class="lni lni-facebook-filled"></i> Facebook
@@ -42,7 +42,7 @@
                                         href="#"><i class="lni lni-google"></i> Google</a>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="alt-option">
                             <span>Ou</span>
                         </div>
