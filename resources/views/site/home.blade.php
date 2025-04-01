@@ -320,7 +320,6 @@
                         <!-- End Single Product -->
                     </div>
                 @endforeach
-
             </div>
         </div>
     </section>
@@ -334,7 +333,7 @@
                     <div class="single-banner" style="background-image:url('assets/imagens/banner/banner-1-bg.jpg');">
                         <div class="content">
                             <h2>Smart Watch 2.0</h2>
-                            <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
+                            <p>Relógio inteligente avançado <br>Com monitoramento de saúde</p>
                             <div class="button">
                                 <a href="{{ route('home.loja', 'Relogio') }}" class="btn">Ver Detalhes</a>
                             </div>
@@ -346,10 +345,9 @@
                         style="background-image:url('assets/imagens/banner/banner-2-bg.jpg');">
                         <div class="content">
                             <h2>Smart Headphone</h2>
-                            <p>Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                                incididunt ut labore.</p>
+                            <p>Fones de ouvido inteligentes<br> De alta qualidade de áudio.</p>
                             <div class="button">
-                                <a href="#" class="btn">Comprar Agora</a>
+                                <a href="{{ route('home.loja', 'auscutadores') }}" class="btn">Comprar Agora</a>
                             </div>
                         </div>
                     </div>

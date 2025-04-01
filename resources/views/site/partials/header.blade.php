@@ -35,32 +35,23 @@
                     </a>
                     <!-- End Header Logo -->
                 </div>
-                <div class="col-lg-5 col-md-7 d-xs-none">
+                <form role="search" method="GET" action="{{ route('home.loja') }}"
+                    class="col-lg-5 col-md-7 d-xs-none">
                     <!-- Start Main Menu Search -->
                     <div class="main-menu-search">
                         <!-- navbar search start -->
                         <div class="navbar-search search-style-5">
-                            <div class="search-select">
-                                <div class="select-position">
-                                    <select id="select1">
-                                        <option selected>Todos</option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->slug }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                             <div class="search-input">
-                                <input type="text" placeholder="Buscar por...">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Buscar por..." value="{{ request('search') }}" aria-label="Search">
                             </div>
                             <div class="search-btn">
-                                <button><i class="lni lni-search-alt"></i></button>
+                                <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </div>
                         </div>
                         <!-- navbar search Ends -->
                     </div>
                     <!-- End Main Menu Search -->
-                </div>
+                </form>
                 <div class="col-lg-4 col-md-2 col-5">
                     <div class="middle-right-area">
                         <div class="nav-hotline">
@@ -173,7 +164,7 @@
                                     <a href="{{ route('home.index') }}" aria-label="Toggle navigation">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('home.loja', 'all') }}" aria-label="Toggle navigation">Loja</a>
+                                    <a href="{{ route('home.loja', 'hp') }}" aria-label="Toggle navigation">Loja</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ route('home.about') }}" aria-label="Toggle navigation">Sobre</a>

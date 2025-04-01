@@ -26,10 +26,4 @@ class HomeController extends Controller
         return view('site.home', compact('categories', 'subcategories', 'destaques', 'especiais', 'notbookSansung', 'escutadorPromo', 'brands', 'recentProducts', 'randomProducts1', 'randomProducts2'));
     }
 
-    public function loja(Category $category, SubCategory $subcategory)
-    {
-        $categories = $category->all();
-        $subcategories = $subcategory->all();
-        return view('site.home', compact('categories', 'subcategories'));
-    }
 }
