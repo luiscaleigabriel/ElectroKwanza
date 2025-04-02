@@ -6,18 +6,41 @@
             <div class="row align-items-center">
                 <div class="col-12">
                     <div class="top-end">
-                        <!-- <div class="user">
-                                <i class="lni lni-user"></i>
-                                Olá!
-                            </div> -->
-                        <ul class="user-login">
-                            <li>
-                                <a href="{{ route('login') }}">Login</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('register') }}">Registre-se</a>
-                            </li>
-                        </ul>
+                        @auth
+                            <div class="dropdown">
+                                <div class="dropdown-toggle d-flex align-items-center text-decoration-none" id="userDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
+                                    <i class="lni lni-user me-1"></i>
+                                    <span>Olá, {{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</span>
+                                </div>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#"><i class="lni lni-user me-2"></i> Meu
+                                            Perfil</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="lni lni-cart me-2"></i> Minhas
+                                            Compras</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="lni lni-heart me-2"></i>
+                                            Favoritos</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                    <li><a class="dropdown-item" href="{{ route('auth.logout') }}"></i>
+                                            Sair</a></li>
+                                    <li>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endauth
+                        @guest
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{ route('login') }}">Login</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('register') }}">Registre-se</a>
+                                </li>
+                            </ul>
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -111,7 +134,8 @@
                                                 Kz</span>
                                         </div>
                                         <div class="button">
-                                            <a href="{{ route('checkout.index') }}" class="btn animate {{ $cartTotal < 1 ? 'disabled' : '' }}">Checkout</a>
+                                            <a href="{{ route('checkout.index') }}"
+                                                class="btn animate {{ $cartTotal < 1 ? 'disabled' : '' }}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -203,5 +227,3 @@
     <!-- End Header Bottom -->
 </header>
 <!-- End Header Area -->
-
-

@@ -49,22 +49,31 @@ Route::post('/cart/decrease/{rowId}', [CartController::class, 'decreaseQuantity'
 | Checkout & Payment Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/pay/visa', [PaymentController::class, 'visa'])->name('pay.visa');
-Route::post('/pay/unitel', [PaymentController::class, 'unitelMoney'])->name('pay.unitelmoney');
-Route::post('/payment/callback', [PaymentController::class, 'handleCallback'])->name('payment.callback');
+Route::middleware('auth')->group(
+    function () {
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+        Route::post('/checkout/initiate', [CheckoutController::class, 'initiateCheckout'])->name('checkout.initiate');
+        Route::post('/pay/visa', [PaymentController::class, 'visa'])->name('pay.visa');
+        Route::post('/pay/unitel', [PaymentController::class, 'unitelMoney'])->name('pay.unitelmoney');
+        Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+    }
+);
 
 /*
 |--------------------------------------------------------------------------
 | Auth Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->name('register');
+Route::middleware('guest')->group(
+    function () {
+        Route::get('/login', [LoginController::class, 'index'])->name('login');
+        Route::get('/register', [RegisterController::class, 'index'])->name('register');
+        Route::post('/register', [RegisterController::class, 'store'])->name('register');
+    }
+);
 
 Route::prefix('auth')->name('auth.')->group(
-    function() {
+    function () {
         Route::post('/login', [AuthController::class, 'login'])->name('login');
         Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     }
@@ -114,6 +123,5 @@ Route::middleware(['auth', 'admin'])->group(
         Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
         Route::put('/admin/product/{id}', [ProductController::class, 'update'])->name('admin.products.update');
         Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
-
     }
 );

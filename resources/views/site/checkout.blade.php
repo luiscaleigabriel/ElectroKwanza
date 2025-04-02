@@ -32,83 +32,83 @@
                             <li>
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour"
                                     aria-expanded="false" aria-controls="collapseFour">Detalhes Da Compra</h6>
-                                <form action="" method="POST">
-                                    <section class="checkout-steps-form-content collapse" id="collapseFour"
-                                    aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="single-form form-default">
-                                                <label>Nome do Usuário</label>
-                                                <div class="row">
-                                                    <div class="col-md-6 form-input form">
-                                                        <input type="text" name="firstname" placeholder="Primeiro Nome">
+                                    <form action="{{ route('checkout.initiate') }}" method="POST">
+                                        @csrf
+                                        <section class="checkout-steps-form-content collapse" id="collapseFour"
+                                                 aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="single-form form-default">
+                                                        <label>Nome do Usuário</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6 form-input form">
+                                                                <input type="text" name="firstname" placeholder="Primeiro Nome"
+                                                                       value="{{ Auth::user()->firstname }}" required>
+                                                            </div>
+                                                            <div class="col-md-6 form-input form">
+                                                                <input type="text" value="{{ Auth::user()->lastname }}"
+                                                                       name="lastname" placeholder="Último Nome" required>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6 form-input form">
-                                                        <input type="text" name="lastname" placeholder="Último Nome">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="single-form form-default">
+                                                        <label>Email</label>
+                                                        <div class="form-input form">
+                                                            <input type="email" value="{{ Auth::user()->email }}"
+                                                                   name="email" placeholder="Seu email" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="single-form form-default">
+                                                        <label>Nº de Telefone</label>
+                                                        <div class="form-input form">
+                                                            <input type="text" value="{{ Auth::user()->phone }}"
+                                                                   name="phone" placeholder="Seu nº de telefone" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="checkout-payment-option">
+                                                        <h6 class="heading-6 font-weight-400 payment-title">Opções de entrega</h6>
+                                                        <div class="payment-option-wrapper">
+                                                            <div class="single-payment-option">
+                                                                <input type="radio" name="shipping_option" value="normal" checked id="shipping-1">
+                                                                <label for="shipping-1">
+                                                                    <img src="{{ asset('assets/imagens/shipping/shipping-1.png') }}" alt="Sipping">
+                                                                    <p>Entrega Normal (Em até 3 dias)</p>
+                                                                    <span class="price">2.500,00Kz</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="single-payment-option">
+                                                                <input type="radio" name="shipping_option" value="express" id="shipping-2">
+                                                                <label for="shipping-2">
+                                                                    <img src="{{ asset('assets/imagens/shipping/shipping-2.png') }}" alt="Sipping">
+                                                                    <p>Entrega rápida (Em até 24h)</p>
+                                                                    <span class="price">6.000,00Kz</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="single-payment-option">
+                                                                <input type="radio" name="shipping_option" value="pickup" id="shipping-3">
+                                                                <label for="shipping-3">
+                                                                    <img src="{{ asset('assets/imagens/shipping/shipping-3.png') }}" alt="Sipping">
+                                                                    <p>Sem entrega (Pegue seu produto na loja mais próxima de si)</p>
+                                                                    <span class="price">0,00Kz</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="steps-form-btn button">
+                                                        <button class="btn" type="submit">Salvar & Continuar</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label>Email</label>
-                                                <div class="form-input form">
-                                                    <input type="email" name="email" placeholder="Seu email">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="single-form form-default">
-                                                <label>Nº de Telefone</label>
-                                                <div class="form-input form">
-                                                    <input type="number" name="phone" placeholder="Seu nº de telefone">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-payment-option">
-                                                <h6 class="heading-6 font-weight-400 payment-title">Opções de entrega</h6>
-                                                <div class="payment-option-wrapper">
-                                                    <div class="single-payment-option">
-                                                        <input type="radio" name="shipping" checked id="shipping-1">
-                                                        <label for="shipping-1">
-                                                            <img src="{{ asset('assets/imagens/shipping/shipping-1.png') }}"
-                                                                alt="Sipping">
-                                                            <p>Entra Normal (Em até 3 dias)</p>
-                                                            <span class="price">2.500,00Kz</span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="single-payment-option">
-                                                        <input type="radio" name="shipping" id="shipping-2">
-                                                        <label for="shipping-2">
-                                                            <img src="{{ asset('assets/imagens/shipping/shipping-2.png') }}"
-                                                                alt="Sipping">
-                                                            <p>Entrega rápida (Em até 24h)</p>
-                                                            <span class="price">6.000,00Kz</span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="single-payment-option">
-                                                        <input type="radio" name="shipping" id="shipping-3">
-                                                        <label for="shipping-3">
-                                                            <img src="{{ asset('assets/imagens/shipping/shipping-3.png') }}"
-                                                                alt="Sipping">
-                                                            <p>Sem entrega (Pegue seu produto na loja mais proxima de si)</p>
-                                                            <span class="price">0,00Kz</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="steps-form-btn button">
-                                                <button class="btn" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseThree" aria-expanded="false"
-                                                    aria-controls="collapseThree" type="submit" >Salvar & Continuar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                </form>
+                                        </section>
+                                    </form>
                             </li>
                             <li>
                                 <h6 class="title collapsed" data-bs-toggle="collapse" data-bs-target="#collapsefive"

@@ -28,7 +28,7 @@ class AuthController extends Controller
             }elseif($user->role == 'seller') {
 
             }elseif($user->role == 'customer') {
-
+                return redirect()->route('checkout.index');
             }
         }
 
@@ -39,6 +39,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('home');
+        return redirect()->route('home.index');
     }
 }

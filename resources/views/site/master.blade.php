@@ -38,6 +38,26 @@
                 opacity: 0;
             }
         }
+
+        /* Garante que todo o container do dropdown-toggle seja clicável */
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            color: #0d6efd;
+            background-color: #f8f9fa;
+        }
+
+        /* Estilo para o texto do usuário */
+        .dropdown-toggle span {
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 
@@ -89,6 +109,35 @@
     <script src="{{ asset('assets/js/slider.js') }}"></script>
     <script src="{{ asset('assets/js/glibox.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa todos os dropdowns
+            var dropdowns = document.querySelectorAll('.dropdown-toggle');
+            dropdowns.forEach(function(dropdown) {
+                dropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var menu = this.nextElementSibling;
+                    menu.classList.toggle('show');
+
+                    // Fecha outros dropdowns abertos
+                    document.querySelectorAll('.dropdown-menu').forEach(function(otherMenu) {
+                        if (otherMenu !== menu && otherMenu.classList.contains('show')) {
+                            otherMenu.classList.remove('show');
+                        }
+                    });
+                });
+            });
+
+            // Fecha o dropdown ao clicar fora
+            document.addEventListener('click', function(e) {
+                if (!e.target.matches('.dropdown-toggle') && !e.target.closest('.dropdown-menu')) {
+                    document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+                        menu.classList.remove('show');
+                    });
+                }
+            });
+        });
+    </script>
     @yield('js')
 </body>
 
