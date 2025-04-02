@@ -31,4 +31,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'appypay' => [
+        'api_key' => env('APPYPAY_API_KEY'),
+        'merchant_id' => env('APPYPAY_MERCHANT_ID'),
+        'secret_key' => env('APPYPAY_SECRET_KEY'),
+        'sandbox_url' => env('APPYPAY_SANDBOX_URL'),
+        'production_url' => env('APPYPAY_PRODUCTION_URL'),
+    ],
+
 ];

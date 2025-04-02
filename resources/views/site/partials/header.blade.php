@@ -15,7 +15,7 @@
                                 <a href="{{ route('login') }}">Login</a>
                             </li>
                             <li>
-                                <a href="register.html">Registre-se</a>
+                                <a href="{{ route('register') }}">Registre-se</a>
                             </li>
                         </ul>
                     </div>

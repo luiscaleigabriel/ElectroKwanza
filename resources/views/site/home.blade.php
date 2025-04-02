@@ -88,11 +88,10 @@
                                     <h2><span>Aproveite a promoção</span>
                                         M75 Sport Watch
                                     </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                                        labore dolore magna aliqua.</p>
-                                    <h3><span>Apenas hoje</span> 30.000,00Kz</h3>
+                                    <p>O M75 Sport Watch é um smartwatch esportivo com design moderno e diversas funcionalidades voltadas para fitness, saúde e conectividade!</p>
+                                    <h3><span>Apenas hoje</span> 40.000,00Kz</h3>
                                     <div class="button">
-                                        <a href="#" class="btn">Comprar</a>
+                                        <a href="{{ route('home.loja') }}?search=relogio" class="btn">Comprar</a>
                                     </div>
                                 </div>
                             </div>
@@ -103,11 +102,10 @@
                                     <h2><span>Grande promoção</span>
                                         Get the Best Deal on CCTV Camera
                                     </h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                                        labore dolore magna aliqua.</p>
-                                    <h3><span>Apenas hoje</span> 30.000,00Kz</h3>
+                                    <p>Oferecemos câmeras de segurança CCTV de alta qualidade com os melhores preços do mercado</p>
+                                    <h3><span>Apenas hoje</span> 60.000,00Kz</h3>
                                     <div class="button">
-                                        <a href="#" class="btn">Comprar</a>
+                                        <a href="{{ route('home.loja') }}?search=camera" class="btn">Comprar</a>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +125,7 @@
                                         <span>Novos produtos</span>
                                         iPhone 12 Pro Max
                                     </h2>
-                                    <h3>1.000.000,00Kz</h3>
+                                    <h3>1.200.000,00Kz</h3>
                                 </div>
                             </div>
                             <!-- End Small Banner -->
@@ -139,7 +137,7 @@
                                     <h2>Ofertas da semana!</h2>
                                     <p>Compre com 30% de desconto em todos os produtos.</p>
                                     <div class="button">
-                                        <a class="btn" href="#">Comprar agora</a>
+                                        <a class="btn" href="{{ route('home.loja') }}">Comprar agora</a>
                                     </div>
                                 </div>
                             </div>

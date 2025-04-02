@@ -176,23 +176,32 @@
                                                         <label>Número de Telefone Unitel Money</label>
                                                         <div class="form-input form">
                                                             <input type="text" name="unitel_number"
-                                                                placeholder="Ex: 923 000 000" required>
+                                                                   value="{{ old('unitel_number') }}"
+                                                                   placeholder="Ex: 923 000 000" class="form-control @error('unitel_number')is-invalid @enderror" required>
+                                                            @error('unitel_number')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
-    
                                                     <!-- Código PIN (Senha) -->
                                                     <div class="single-form form-default">
                                                         <label>PIN Unitel Money</label>
                                                         <div class="form-input form">
-                                                            <input type="password" name="unitel_pin" placeholder="****"
-                                                                required>
+                                                            <input type="password" name="unitel_pin" placeholder="****" class="form-control @error('unitel_pin')is-invalid @enderror" required>
+                                                            @error('unitel_pin')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
-    
                                                     <!-- Botão de Pagamento -->
                                                     <div class="single-form form-default button">
                                                         <button type="submit" class="btn">Pagar com Unitel Money</button>
                                                     </div>
+                                                    @if(session('error'))
+                                                        <div class="alert alert-danger">
+                                                            {{ session('error') }}
+                                                        </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </form>
