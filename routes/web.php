@@ -13,6 +13,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Route;
@@ -44,10 +45,12 @@ Route::post('/cart/decrease/{rowId}', [CartController::class, 'decreaseQuantity'
 
 /*
 |--------------------------------------------------------------------------
-| Checkout Routes
+| Checkout & Payment Routes
 |--------------------------------------------------------------------------
 */
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/pay/visa', [PaymentController::class, 'visa'])->name('pay.visa');
+Route::post('/pay/unitel', [PaymentController::class, 'unitelMoney'])->name('pay.unitelmoney');
 
 /*
 |--------------------------------------------------------------------------

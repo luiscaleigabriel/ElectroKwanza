@@ -111,8 +111,8 @@
                                 <div class="right">
                                     <ul>
                                         <li>SubTotal<span>{{ number_format($cartTotal, 2, ',', '.') }}Kz</span></li>
-                                        <li>Entrega<span>{{ $cartTotal > 0 ? $cartTotal > 100000 ? 'Gratis' : '3.000,00Kz' : '0,00Kz' }}</span></li>
-                                        <li class="last">Total<span>{{ $cartTotal > 0 ? $cartTotal > 100000 ? number_format($cartTotal, 2, ',', '.') : number_format($cartTotal + 3000, 2, ',', '.') : '0,00' }}Kz</span></li>
+                                        <li>Entrega<span>Não Definida</span></li>
+                                        <li class="last">Total<span>{{ number_format($cartTotal, 2, ',', '.') }}Kz</span></li>
                                     </ul>
                                     <div class="button">
                                         <a  href="{{ route('checkout.index') }}" class="btn {{ $cartTotal < 1 ? 'disabled' : '' }}">Checkout</a>
