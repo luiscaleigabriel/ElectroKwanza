@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\SubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -49,22 +51,9 @@ class CheckoutController extends Controller
                 break;
         }
 
-        // Armazenar dados na sessão
-        session([
-            'checkout_data' => [
-                'customer' => [
-                    'firstname' => $request->firstname,
-                    'lastname' => $request->lastname,
-                    'email' => $request->email,
-                    'phone' => $request->phone
-                ],
-                'shipping' => [
-                    'option' => $request->shipping_option,
-                    'cost' => $shippingCost
-                ],
-                'cart_total' => Cart::total(0, '', ''),
-                'grand_total' => Cart::total(0, '', '') + $shippingCost
-            ]
+        $created = Order::create([
+            'user_id' => Auth::user()->id,
+            'ship' => $shippingCost
         ]);
 
         // Redirecionar para seleção de método de pagamento

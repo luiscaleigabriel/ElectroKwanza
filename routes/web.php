@@ -55,7 +55,7 @@ Route::middleware('auth')->group(
         Route::post('/checkout/initiate', [CheckoutController::class, 'initiateCheckout'])->name('checkout.initiate');
         Route::post('/pay/visa', [PaymentController::class, 'visa'])->name('pay.visa');
         Route::post('/pay/unitel', [PaymentController::class, 'unitelMoney'])->name('pay.unitelmoney');
-        Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+        Route::get('/payment/method', [PaymentController::class, 'index'])->name('payment.method');
     }
 );
 

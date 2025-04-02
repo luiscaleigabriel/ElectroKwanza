@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Order;
+use App\Models\SubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -10,6 +12,14 @@ use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
+    public function index(Category $category, SubCategory $subcategory)
+    {
+        $categories = $category->all();
+        $subcategories = $subcategory->all();
+
+        return view('site.pay', compact('categories', 'subcategories'));
+    }
+
     public function visa()
     {
 
@@ -60,15 +70,6 @@ class PaymentController extends Controller
             'cart_content' => 'O seu carrinho foi limpo após o pagamento.'
         ]);
 
-    }
-
-    public function paymentSuccess()
-    {
-        if (!session('success')) {
-            return redirect('/');
-        }
-
-        return view('payment.success');
     }
 
 }

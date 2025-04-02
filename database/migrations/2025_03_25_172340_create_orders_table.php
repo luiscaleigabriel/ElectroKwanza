@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->decimal('total_price', 12, 2);
             $table->string('status')->default('Pedindo');
+            $table->string('ship');
             $table->timestamps();
         });
     }
