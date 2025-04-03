@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\SubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -20,10 +24,7 @@ class PaymentController extends Controller
         return view('site.pay', compact('categories', 'subcategories'));
     }
 
-    public function visa()
-    {
-
-    }
+    public function visa() {}
 
     public function unitelMoney(Request $request)
     {
@@ -55,21 +56,66 @@ class PaymentController extends Controller
             return back()->with('error', 'Saldo insuficiente na conta Unitel Money');
         }
 
-        // Simulação de processamento bem-sucedido
-        $transactionId = 'SIM' . time(); // ID de transação simulado
+        // Usar transação para garantir integridade dos dados
+        DB::beginTransaction();
 
-        // Limpar o carrinho após pagamento
-        Cart::destroy();
+        try {
+            // Criar o pedido
+            $order = Order::create([
+                'user_id' => Auth::id(),
+                'total_price' => Cart::total(0, '', '') + session('ship'),
+                'status' => 'Finalizada',
+                'ship' => session('ship')
+            ]);
 
-        // Redirecionar para página de sucesso com dados simulados
-        return redirect()->route('payment.success')->with([
-            'success' => 'Pagamento realizado com sucesso via Unitel Money',
-            'transaction_id' => $transactionId,
-            'amount' => number_format($amountToPay, 2, ',', '.') . ' Kz',
-            'phone_number' => $request->unitel_number,
-            'cart_content' => 'O seu carrinho foi limpo após o pagamento.'
-        ]);
+            // Adicionar itens do carrinho ao pedido
+            foreach (Cart::content() as $cartItem) {
+                $product = Product::findOrFail($cartItem->id);
 
+                OrderItem::create([
+                    'order_id' => $order->id,
+                    'product_id' => $product->id,
+                    'quantity' => $cartItem->qty,
+                    'price' => $cartItem->price,
+                ]);
+
+                // Atualizar estoque (opcional)
+                $product->decrement('stock', $cartItem->qty);
+            }
+
+            // Armazenar dados na sessão para uso posterior
+            session([
+                'current_order_id' => $order->id,
+                'checkout_data' => [
+                    'customer' => [
+                        'firstname' => $request->firstname,
+                        'lastname' => $request->lastname,
+                        'email' => $request->email,
+                        'phone' => $request->phone
+                    ],
+                    'shipping' => [
+                        'option' => $request->shipping_option,
+                        'cost' => session('ship')
+                    ],
+                    'cart_total' => Cart::content()->sum(function ($item) {
+                        return $item->price * $item->qty;
+                    }),
+                    'grand_total' => Cart::content()->sum(function ($item) {
+                        return $item->price * $item->qty;
+                    }) + session('ship')
+                ]
+            ]);
+
+            DB::commit();
+
+            // Limpar carrinho e sessão
+            Cart::destroy();
+
+            // Redirecionar para seleção de método de pagamento
+            return redirect()->back()->with('success', 'Compra finalizada com sucesso');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Erro ao processar pedido: ' . $e->getMessage());
+        }
     }
-
 }

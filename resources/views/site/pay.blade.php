@@ -97,7 +97,7 @@
                                                         <div class="form-input form">
                                                             <input type="text" name="unitel_number"
                                                                    value="{{ old('unitel_number') }}"
-                                                                   placeholder="Ex: 923 000 000" class="form-control @error('unitel_number')is-invalid @enderror" required>
+                                                                   placeholder="Ex: 923 000 000" class="form-control @error('unitel_number')is-invalid @enderror">
                                                             @error('unitel_number')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -107,7 +107,7 @@
                                                     <div class="single-form form-default">
                                                         <label>PIN Unitel Money</label>
                                                         <div class="form-input form">
-                                                            <input type="password" name="unitel_pin" placeholder="****" class="form-control @error('unitel_pin')is-invalid @enderror" required>
+                                                            <input type="password" name="unitel_pin" placeholder="****" class="form-control @error('unitel_pin')is-invalid @enderror">
                                                             @error('unitel_pin')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror

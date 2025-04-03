@@ -51,10 +51,12 @@ class CheckoutController extends Controller
                 break;
         }
 
-        $created = Order::create([
+        // Armazenar dados na sessão para uso posterior
+        session([
             'user_id' => Auth::user()->id,
-            'ship' => $shippingCost
-        ]);
+            'ship' => $shippingCost,
+            ]);
+
 
         // Redirecionar para seleção de método de pagamento
         return redirect()->route('payment.method');
