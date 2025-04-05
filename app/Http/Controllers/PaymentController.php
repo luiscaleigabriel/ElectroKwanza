@@ -14,6 +14,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Mail\OrderConfirmation;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -99,7 +101,10 @@ class PaymentController extends Controller
             // Limpar carrinho e sessão
             Cart::destroy();
 
-            return redirect()->back()->with('success', 'Compra finalizada com sucesso');
+            // Enviar e-mail de confirmação
+            // Mail::to(Auth::user()->email)->send(new OrderConfirmation($order, Auth::user()));
+
+            return redirect()->route('customer.orders')->with('success', 'Compra finalizada com sucesso');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Erro ao processar pedido. Por favor tente novamente!');
