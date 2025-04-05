@@ -16,7 +16,7 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     <li><a class="dropdown-item" href="{{ route('customer.index') }}"><i class="lni lni-user me-2"></i> Meu
                                             Perfil</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="lni lni-cart me-2"></i> Minhas
+                                    <li><a class="dropdown-item" href="{{ route('customer.orders') }}"><i class="lni lni-cart me-2"></i> Minhas
                                             Compras</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="lni lni-heart me-2"></i>
                                             Favoritos</a></li>

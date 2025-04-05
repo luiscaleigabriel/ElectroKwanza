@@ -12,7 +12,7 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="{{ route('home.index') }}"><i class="lni lni-home"></i> Home</a></li>
-                        <li>Perfil</li>
+                        <li>Alterar Senha</li>
                     </ul>
                 </div>
             </div>
@@ -69,61 +69,25 @@
                                     <form class="row" method="POST" action="{{ route('customer.update') }}">
                                         @csrf
 
-                                        <div class="col-sm-6 mb-4">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="firstname">Primeiro Nome</label>
-                                                <input class="form-control @error('firstname') is-invalid @enderror"
-                                                    type="text" id="firstname" name="firstname"
-                                                    value="{{ $user->firstname }}" autofocus>
-                                                @error('firstname')
+                                                <label for="password">Senha</label>
+                                                <input class="form-control @error('password') is-invalid @enderror"
+                                                    type="password" id="password" name="password" minlength="8">
+                                                @error('password')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
+                                                <small class="form-text text-muted">Mínimo 8 caracteres</small>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-6 mb-4">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="lastname">Último Nome</label>
-                                                <input class="form-control @error('lastname') is-invalid @enderror"
-                                                    type="text" id="lastname" name="lastname"
-                                                    value="{{ $user->lastname }}">
-                                                @error('lastname')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6 mb-4">
-                                            <div class="form-group">
-                                                <label for="email">Email</label>
-                                                <input class="form-control @error('email') is-invalid @enderror"
-                                                    type="email" id="email" name="email"
-                                                    value="{{ $user->email }}">
-                                                @error('email')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-6 mb-4">
-                                            <div class="form-group">
-                                                <label for="phone">Nº de Telefone</label>
-                                                <input class="form-control @error('phone') is-invalid @enderror"
-                                                    type="text" id="phone" name="phone"
-                                                    value="{{ $user->phone }}" placeholder="9XXXXXXXX">
-                                                @error('phone')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="col mb-4">
-                                            <div class="form-group">
-                                                <label for="phone">Endereço</label>
-                                                <input class="form-control @error('address') is-invalid @enderror"
-                                                    type="text" id="address" name="address"
-                                                    value="{{ $user->address }}" placeholder="Endereço">
-                                                @error('address')
+                                                <label for="password_confirmation">Confirmar Senha</label>
+                                                <input class="form-control @error('password') is-invalid @enderror"
+                                                    type="password" id="password_confirmation"
+                                                    name="password_confirmation">
+                                                @error('password')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

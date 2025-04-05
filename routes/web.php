@@ -70,6 +70,9 @@ Route::middleware(['auth', 'customer'])->group(
     function () {
         Route::get('/user/pane', [CustomerController::class, 'index'])->name('customer.index');
         Route::post('/user/pane', [CustomerController::class, 'update'])->name('customer.update');
+        Route::get('/user/orders', [CustomerController::class, 'myorders'])->name('customer.orders');
+        Route::get('/user/newpass', [CustomerController::class, 'newpass'])->name('customer.newpass');
+        Route::post('/user/newpass', [CustomerController::class, 'reset'])->name('customer.resetpass');
     }
 );
 
