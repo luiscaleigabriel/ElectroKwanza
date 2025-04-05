@@ -17,6 +17,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,17 @@ Route::middleware('auth')->group(
         Route::post('/pay/visa', [PaymentController::class, 'visa'])->name('pay.visa');
         Route::post('/pay/unitel', [PaymentController::class, 'unitelMoney'])->name('pay.unitelmoney');
         Route::get('/payment/method', [PaymentController::class, 'index'])->name('payment.method');
+    }
+);
+
+/*
+|--------------------------------------------------------------------------
+| User (Costumer) Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(
+    function () {
+        Route::get('/user', [UserController::class, 'index'])->name('user.index');
     }
 );
 
