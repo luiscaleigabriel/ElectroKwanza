@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -59,7 +61,7 @@ class CustomerController extends Controller
         }
     }
 
-    public function newpassindex(Category $category, SubCategory $subcategory)
+    public function newpass(Category $category, SubCategory $subcategory)
     {
         $categories = $category->all();
         $subcategories = $subcategory->all();
@@ -67,7 +69,7 @@ class CustomerController extends Controller
         return view('user.resetpass', compact('categories', 'subcategories'));
     }
 
-    public function reset(Request $request)
+    public function reset(Request $request, User $user)
     {
         $request->validate([
             'password' => 'required|string|min:8|confirmed',
@@ -77,7 +79,27 @@ class CustomerController extends Controller
             'password.confirmed' => 'Confirme a senha',
         ]);
 
-        
+        $user = $user->findOrFail(Auth::user()->id);
 
+        $data = [
+            'password' => Hash::make($request->password),
+        ];
+
+        $updated = $user->update($data);
+
+        if($updated) {
+            return redirect()->back()->with('success', 'Senha alterada com sucesso!');
+        }else {
+            return redirect()->back()->with('error', 'Ocorreu um erro ao tentar alterar a senha! Tente novamente.');
+        }
+    }
+
+    public function myorders(Category $category, SubCategory $subcategory, Order $order)
+    {
+        $categories = $category->all();
+        $subcategories = $subcategory->all();
+        $orders = User::find(Auth::user()->id)->orders->all();
+
+        return view('user.orders', compact('categories', 'subcategories', 'orders'));
     }
 }

@@ -66,7 +66,7 @@
                         <div class="col-lg-8 col-md-12 col-12">
                             <div class="form-main">
                                 <div class="register-form">
-                                    <form class="row" method="POST" action="{{ route('customer.update') }}">
+                                    <form class="row" method="POST" action="{{ route('customer.resetpass') }}">
                                         @csrf
 
                                         <div class="col-sm-6">
@@ -94,7 +94,7 @@
                                         </div>
 
                                         <div class="button">
-                                            <button class="btn" type="submit">Atualizar Dados</button>
+                                            <button class="btn" type="submit">Alterar Senha</button>
                                         </div>
                                     </form>
                                 </div>
