@@ -8,6 +8,8 @@ use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\SubCategory;
+use App\Models\User;
+use Barryvdh\DomPDF\PDF;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -98,5 +100,14 @@ class PaymentController extends Controller
             DB::rollBack();
             return back()->with('error', 'Erro ao processar pedido. Por favor tente novamente!');
         }
+    }
+
+    public function generatePDF($paymentId)
+    {
+        $user = User::find(Auth::user()->id);
+        $payment = Payment::where('order_id', '=', $paymentId)->first();
+        $pdf = PDF::loadView('pdf.payment_receipt', compact('payment', 'user'));
+
+        return $pdf->download('comprovante_pagamento.pdf');
     }
 }

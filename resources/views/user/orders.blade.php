@@ -121,10 +121,7 @@
                                                 @endif
                                             </div>
                                             <div class="col-2">
-                                                <form action="" method="post">
-                                                    <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                                    <button type="button" class="btn btn-primary">Gerar Recibo</button>
-                                                </form>
+                                                <a href="{{ route('payments.pdf', $order->id) }}" class="btn btn-primary">Gerar Recibo</a>
                                             </div>
                                         </div>
                                     </div>

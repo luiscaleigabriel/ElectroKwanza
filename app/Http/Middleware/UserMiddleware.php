@@ -21,7 +21,7 @@ class UserMiddleware
             return $next($request);
         }else {
             $request->session()->flush();
-            return redirect()->route('auth.login');
+            return redirect()->route('home.index');
         }
     }
 }

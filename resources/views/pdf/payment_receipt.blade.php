@@ -22,11 +22,15 @@
 </head>
 
 <body>
+    <h1>ElectroKwanza</h1>
+    <br> <br>
     <h2>Comprovante de Pagamento</h2>
-    <p><strong>Número de Telefone:</strong> {{ $payment->phone_number }}</p>
-    <p><strong>Valor:</strong> {{ $payment->amount }} Kz</p>
-    <p><strong>Status:</strong> {{ $payment->status }}</p>
-    <p><strong>Data de Criação:</strong> {{ $payment->created_at }}</p>
+    <p><strong>Nome do Cliente:</strong> {{ $user->firstname . ' ' . $user->lastname }}</p>
+    <p><strong>Metodo de pagamento:</strong> {{ $user->payment_method }}</p>
+    <p><strong>Valor Total:</strong> {{ number_format($payment->amount, 2, '.', ',') }} Kz</p>
+    <p><strong>Compra Finaliza em:</strong> {{ $payment->created_at }}</p>
+    <br>
+    <p><strong>Emitiido por:</strong> &copy;ElectroKwanza - Em {{ date('d/m/Y h:m:s') }}</p>
 </body>
 
 </html>

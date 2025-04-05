@@ -14,12 +14,19 @@
                                     <span>Olá, {{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</span>
                                 </div>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('customer.index') }}"><i class="lni lni-user me-2"></i> Meu
-                                            Perfil</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('customer.orders') }}"><i class="lni lni-cart me-2"></i> Minhas
+                                    @if (Auth::user()->role == 'customer')
+                                    <li><a class="dropdown-item" href="{{ route('customer.index') }}"><i
+                                        class="lni lni-user me-2"></i> Meu
+                                    Perfil</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('customer.orders') }}"><i
+                                                class="lni lni-cart me-2"></i> Minhas
                                             Compras</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="lni lni-heart me-2"></i>
                                             Favoritos</a></li>
+                                    @else
+                                        <li><a class="dropdown-item" href="{{ route('dash') }}"><i
+                                        class="lni lni-user me-2"></i>Painel Administrativo</a></li>
+                                    @endif
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
