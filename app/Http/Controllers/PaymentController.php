@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class PaymentController extends Controller
 {
@@ -28,7 +27,6 @@ class PaymentController extends Controller
 
     public function unitelMoney(Request $request)
     {
-        // Validação dos dados do formulário
         $request->validate([
             'unitel_number' => 'required|regex:/^9[0-9]{8}$/',
             'unitel_pin' => 'required|digits:4',
@@ -43,10 +41,9 @@ class PaymentController extends Controller
         $validPins = ['1234', '0000', '4321'];
 
         if (!in_array($request->unitel_pin, $validPins)) {
-            return back()->with('error', 'PIN incorreto.'); //PINs de teste: 1234, 0000 ou 4321
+            return back()->with('error', 'PIN incorreto.');
         }
 
-        // Obter total do carrinho
         $amountToPay = Cart::total(0, '', '');
 
         // Simulação de saldo suficiente
@@ -63,7 +60,7 @@ class PaymentController extends Controller
             // Criar o pedido
             $order = Order::create([
                 'user_id' => Auth::id(),
-                'total_price' => Cart::total(0, '', '') + session('ship'),
+                'total_price' => Cart::content()->sum(function ($item) {return $item->price * $item->qty;}) + session('ship'),
                 'status' => 'Finalizada',
                 'ship' => session('ship')
             ]);
@@ -79,31 +76,16 @@ class PaymentController extends Controller
                     'price' => $cartItem->price,
                 ]);
 
-                // Atualizar estoque (opcional)
+                // Atualizar estoque
                 $product->decrement('stock', $cartItem->qty);
             }
 
-            // Armazenar dados na sessão para uso posterior
-            session([
-                'current_order_id' => $order->id,
-                'checkout_data' => [
-                    'customer' => [
-                        'firstname' => $request->firstname,
-                        'lastname' => $request->lastname,
-                        'email' => $request->email,
-                        'phone' => $request->phone
-                    ],
-                    'shipping' => [
-                        'option' => $request->shipping_option,
-                        'cost' => session('ship')
-                    ],
-                    'cart_total' => Cart::content()->sum(function ($item) {
-                        return $item->price * $item->qty;
-                    }),
-                    'grand_total' => Cart::content()->sum(function ($item) {
-                        return $item->price * $item->qty;
-                    }) + session('ship')
-                ]
+            // Armazenando dados do pagamento
+            Payment::create([
+                'order_id' => $order->id,
+                'amount' => Cart::content()->sum(function ($item) {return $item->price * $item->qty;}) + session('ship'),
+                'payment_method' => 'Unitel Money',
+                'status' => 'Comprado',
             ]);
 
             DB::commit();
@@ -111,11 +93,10 @@ class PaymentController extends Controller
             // Limpar carrinho e sessão
             Cart::destroy();
 
-            // Redirecionar para seleção de método de pagamento
             return redirect()->back()->with('success', 'Compra finalizada com sucesso');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Erro ao processar pedido: ' . $e->getMessage());
+            return back()->with('error', 'Erro ao processar pedido. Por favor tente novamente!');
         }
     }
 }

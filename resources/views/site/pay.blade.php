@@ -143,10 +143,18 @@
                                     </div>
                                 </div>
                             @endforeach
+                            @if(session('ship'))
+                                <div class="sub-total-price">
+                                    <div class="total-price">
+                                        <p class="value">Entrega</p>
+                                        <p class="price">{{ number_format(session('ship'), 2, ',', '.') }}Kz</p>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="total-payable">
                                 <div class="payable-price">
                                     <p class="value">Total:</p>
-                                    <p class="price">{{ number_format($cartTotal, 2, ',', '.') }}Kz</p>
+                                    <p class="price">{{ number_format($cartTotal + session('ship') ?? 0, 2, ',', '.') }}Kz</p>
                                 </div>
                             </div>
                         </div>

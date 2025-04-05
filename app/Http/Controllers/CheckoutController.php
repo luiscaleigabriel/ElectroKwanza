@@ -51,14 +51,12 @@ class CheckoutController extends Controller
                 break;
         }
 
-        // Armazenar dados na sessão para uso posterior
+        // Armazenando dados da entrega na sessão
         session([
             'user_id' => Auth::user()->id,
             'ship' => $shippingCost,
             ]);
 
-
-        // Redirecionar para seleção de método de pagamento
         return redirect()->route('payment.method');
     }
 }
