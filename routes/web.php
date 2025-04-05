@@ -11,6 +11,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaymentController;
@@ -65,9 +66,10 @@ Route::middleware('auth')->group(
 | User (Costumer) Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->group(
+Route::middleware(['auth', 'customer'])->group(
     function () {
-        Route::get('/user', [UserController::class, 'index'])->name('user.index');
+        Route::get('/user/pane', [CustomerController::class, 'index'])->name('customer.index');
+        Route::post('/user/pane', [CustomerController::class, 'update'])->name('customer.update');
     }
 );
 

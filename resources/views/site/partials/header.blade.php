@@ -14,7 +14,7 @@
                                     <span>Olá, {{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</span>
                                 </div>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="#"><i class="lni lni-user me-2"></i> Meu
+                                    <li><a class="dropdown-item" href="{{ route('customer.index') }}"><i class="lni lni-user me-2"></i> Meu
                                             Perfil</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="lni lni-cart me-2"></i> Minhas
                                             Compras</a></li>
@@ -53,7 +53,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-3 col-md-3 col-7">
                     <!-- Start Header Logo -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/">
                         <img src="{{ asset('assets/imagens/logo.png') }}" alt="Logo">
                     </a>
                     <!-- End Header Logo -->
