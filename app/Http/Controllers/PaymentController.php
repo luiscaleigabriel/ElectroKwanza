@@ -62,7 +62,9 @@ class PaymentController extends Controller
             // Criar o pedido
             $order = Order::create([
                 'user_id' => Auth::id(),
-                'total_price' => Cart::content()->sum(function ($item) {return $item->price * $item->qty;}) + session('ship'),
+                'total_price' => Cart::content()->sum(function ($item) {
+                    return $item->price * $item->qty;
+                }) + session('ship'),
                 'status' => 'Finalizada',
                 'ship' => session('ship')
             ]);
@@ -85,7 +87,9 @@ class PaymentController extends Controller
             // Armazenando dados do pagamento
             Payment::create([
                 'order_id' => $order->id,
-                'amount' => Cart::content()->sum(function ($item) {return $item->price * $item->qty;}) + session('ship'),
+                'amount' => Cart::content()->sum(function ($item) {
+                    return $item->price * $item->qty;
+                }) + session('ship'),
                 'payment_method' => 'Unitel Money',
                 'status' => 'Comprado',
             ]);
@@ -106,10 +110,22 @@ class PaymentController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $payment = Payment::where('order_id', '=', $paymentId)->first();
-        $order_items = OrderItem::where('order_id', '=', $paymentId);
         $order = Order::find($paymentId);
 
-        $pdf = PDF::loadView('pdf.payment_receipt', compact('payment', 'user', 'order_items', 'order'));
+        // Carregue todos os itens do pedido com os produtos relacionados
+        $orderItems = OrderItem::with('product')->where('order_id', $order->id)->get();
+
+        // Formate os itens já com os cálculos prontos
+        $items = $orderItems->map(function ($item) {
+            return [
+                'name' => $item->product->name,
+                'quantity' => $item->quantity,
+                'unit_price' => $item->product->price,
+                'subtotal' => $item->product->price * $item->quantity,
+            ];
+        });
+
+        $pdf = PDF::loadView('pdf.payment_receipt', compact('payment', 'user', 'items', 'order'));
 
         return $pdf->download('comprovante_pagamento.pdf');
     }
