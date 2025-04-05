@@ -58,6 +58,7 @@ Route::middleware('auth')->group(
         Route::post('/pay/visa', [PaymentController::class, 'visa'])->name('pay.visa');
         Route::post('/pay/unitel', [PaymentController::class, 'unitelMoney'])->name('pay.unitelmoney');
         Route::get('/payment/method', [PaymentController::class, 'index'])->name('payment.method');
+        Route::get('/generate/{paymentId}/pdf', [PaymentController::class, 'generatePDF'])->name('payments.pdf');
     }
 );
 

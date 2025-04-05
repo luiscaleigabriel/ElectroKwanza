@@ -54,9 +54,9 @@ class CustomerController extends Controller
 
         $updated = $user->update($data);
 
-        if($updated) {
+        if ($updated) {
             return redirect()->back()->with('success', 'Dados atualizados com sucesso!');
-        }else {
+        } else {
             return redirect()->back()->with('error', 'Ocorreu um erro! Tente novamente.');
         }
     }
@@ -87,9 +87,9 @@ class CustomerController extends Controller
 
         $updated = $user->update($data);
 
-        if($updated) {
+        if ($updated) {
             return redirect()->back()->with('success', 'Senha alterada com sucesso!');
-        }else {
+        } else {
             return redirect()->back()->with('error', 'Ocorreu um erro ao tentar alterar a senha! Tente novamente.');
         }
     }
