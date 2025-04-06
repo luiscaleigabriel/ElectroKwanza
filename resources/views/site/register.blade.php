@@ -32,7 +32,7 @@
                             <p>O registo demora menos de um minuto, mas dá-lhe controlo total sobre os seus pedidos.</p>
                         </div>
 
-                        <form class="row" method="POST" action="{{ route('register') }}">
+                        <form class="row" method="POST" action="{{ route('register.store') }}">
                             @csrf
 
                             <div class="col-sm-6">

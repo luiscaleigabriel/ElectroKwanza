@@ -24,7 +24,7 @@ class RegisterController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|regex:/^9[0-9]{8}$/|unique:users',
+            'phone' => 'required|regex:/^9[0-9]{8}$/',
             'password' => 'required|string|min:8|confirmed',
             'terms' => 'accepted',
         ], [
@@ -35,7 +35,6 @@ class RegisterController extends Controller
             'email.unique' => 'Este email já foi cadastrado, faça login!',
             'phone.regex' => 'O número de telefone deve começar com 9 e ter 9 dígitos',
             'phone.required' => 'Este campo é obrigatório',
-            'phone.unique' => 'Este número já foi cadastrado, informe outro número!',
             'password.required' => 'Este campo é obrigatório',
             'password.min' => 'A senha deve ter no minimo 8 caracteres',
             'password.confirmed' => 'Confirme a senha',
@@ -53,7 +52,7 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->back()->with('success', 'Registro concluído com sucesso!');
+        return redirect()->route('home.index')->with('success', 'Registro concluído com sucesso!');
 
     }
 }

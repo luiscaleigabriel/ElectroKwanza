@@ -89,7 +89,7 @@ Route::middleware('guest')->group(
     function () {
         Route::get('/login', [LoginController::class, 'index'])->name('login');
         Route::get('/register', [RegisterController::class, 'index'])->name('register');
-        Route::post('/register', [RegisterController::class, 'store'])->name('register');
+        Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
     }
 );
 
@@ -147,6 +147,8 @@ Route::middleware(['auth', 'admin'])->group(
 
         // Order operaction
         Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
+        Route::get('/admin/orders/{id}', [OrderController::class, 'show'])->name('admin.orders.show');
+
 
         // Ship operaction
         Route::get('/admin/ship', [ShipController::class, 'index'])->name('admin.ship');
@@ -160,5 +162,29 @@ Route::middleware(['auth', 'admin'])->group(
         Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
         Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
         Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    }
+);
+
+
+/*
+|--------------------------------------------------------------------------
+| Delivery Routes
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', ''])->group(
+    function () {
+        // Ship operaction
+        Route::get('/admin/ship', [ShipController::class, 'index'])->name('admin.ship');
+        Route::put('/admin/ship/{id}/confirm', [ShipController::class, 'confirm'])->name('admin.ship.shipconfirm');
+
+        // Users operaction
+        Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+        Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
     }
 );

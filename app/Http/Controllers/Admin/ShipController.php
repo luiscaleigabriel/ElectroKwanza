@@ -18,7 +18,7 @@ class ShipController extends Controller
             return $query->where('created_at', 'like', "%{$search}%")
                 ->orWhere('id', 'like', "%{$search}%")
                 ->orWhere('total_price', 'like', "%{$search}%");
-        })->paginate(10);
+        })->orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.ship.index', compact('orders', 'users'));
     }

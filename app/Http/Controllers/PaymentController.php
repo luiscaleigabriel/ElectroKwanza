@@ -51,7 +51,7 @@ class PaymentController extends Controller
         $amountToPay = Cart::total(0, '', '');
 
         // Simulação de saldo suficiente
-        $simulatedBalance = 1000000; // Saldo fictício em Kz
+        $simulatedBalance = 2000000; // Saldo fictício em Kz
 
         if ($simulatedBalance < $amountToPay) {
             return back()->with('error', 'Saldo insuficiente na conta Unitel Money');

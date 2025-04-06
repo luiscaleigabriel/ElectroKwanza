@@ -17,12 +17,18 @@ class Order extends Model
         'status_ship',
     ];
 
-    public function products() {
+    public function products()
+    {
         return $this->belongsToMany(Product::class, 'order_items')->withPivot('quantity', 'price');
     }
 
-    public function payments() {
+    public function payments()
+    {
         return $this->hasOne(Payment::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

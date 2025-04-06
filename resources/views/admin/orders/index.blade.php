@@ -40,7 +40,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-success btn-sm "
-                                            disabled>{{ $order->status }}</button>
+                                                disabled>{{ $order->status }}</button>
                                         </td>
                                         <td>
                                             {{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y H:i') }}
@@ -80,8 +80,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-dark view-category"
-                                                data-id="{{ $order->id }}">
+                                            <button type="button" class="btn btn-outline-dark view-order" data-id="{{ $order->id }}">
                                                 <i class="bi bi-eye"></i>
                                             </button>
                                         </td>
@@ -104,56 +103,68 @@
     <!-- Table End -->
 
     <!-- Modal de Visualização de detalhes -->
-    <div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="viewCategoryModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Modal de Visualização de detalhes da Compra -->
+    <div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"> <!-- modal maior -->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewCategoryModalLabel">Detalhes da Categoria</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title">Detalhes da Compra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
-                <div class="modal-body w-100">
-                    <p><strong>ID:</strong> <span id="categoryId"></span></p>
-                    <p><strong>Nome:</strong> <span id="categoryName"></span></p>
-                    <p><strong>Slug:</strong> <span id="categorySlug"></span></p>
-                    <p style="text-align: justify"><strong>Descrição:</strong>
-                    <div style="overflow: auto;"><span id="categoryDescription"></span></div>
-                    </p>
-                    <p><strong>Data de Criação:</strong> <span id="categoryCreatedAt"></span></p>
-                    <p><strong>Última Atualização:</strong> <span id="categoryUpdatedAt"></span></p>
+                <div class="modal-body">
+                    <p><strong>ID da Compra:</strong> <span id="orderId"></span></p>
+                    <p><strong>Cliente:</strong> <span id="orderCustomer"></span></p>
+                    <p><strong>Email:</strong> <span id="orderEmail"></span></p>
+                    <p><strong>Telefone:</strong> <span id="orderPhone"></span></p>
+                    <p><strong>Endereço:</strong> <span id="orderAddress"></span></p>
+                    <p><strong>Total:</strong> <span id="orderTotal"></span></p>
+                    <p><strong>Status da Compra:</strong> <span id="orderStatus"></span></p>
+                    <p><strong>Status da Entrega:</strong> <span id="orderShipStatus"></span></p>
+                    <p><strong>Data da Compra:</strong> <span id="orderCreatedAt"></span></p>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 
 
 @section('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const viewButtons = document.querySelectorAll('.view-category');
-            const viewModal = new bootstrap.Modal(document.getElementById('viewCategoryModal'));
+            const viewButtons = document.querySelectorAll('.view-order');
+            const viewModal = new bootstrap.Modal(document.getElementById('viewOrderModal'));
 
             viewButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const categoryId = this.getAttribute('data-id');
+                    const orderId = this.getAttribute('data-id');
 
-                    fetch(`/admin/categories/${categoryId}`)
+                    fetch(`/admin/orders/${orderId}`)
                         .then(response => response.json())
-                        .then(category => {
-                            document.getElementById('categoryId').textContent = category.id;
-                            document.getElementById('categoryName').textContent = category.name;
-                            document.getElementById('categorySlug').textContent = category.slug;
-                            document.getElementById('categoryDescription').textContent =
-                                category.description;
-                            document.getElementById('categoryCreatedAt').textContent = new Date(
-                                category.created_at).toLocaleString();
-                            document.getElementById('categoryUpdatedAt').textContent = new Date(
-                                category.updated_at).toLocaleString();
+                        .then(order => {
+                            document.getElementById('orderId').textContent = order.id;
+                            document.getElementById('orderCustomer').textContent =
+                                `${order.user.firstname} ${order.user.lastname}`;
+                            document.getElementById('orderEmail').textContent = order.user
+                            .email;
+                            document.getElementById('orderPhone').textContent = order.user
+                            .phone;
+                            document.getElementById('orderAddress').textContent = order.user
+                                .address;
+                            document.getElementById('orderTotal').textContent = parseFloat(order
+                                .total_price).toLocaleString('pt-AO', {
+                                style: 'currency',
+                                currency: 'AOA'
+                            });
+                            document.getElementById('orderStatus').textContent = order.status;
+                            document.getElementById('orderShipStatus').textContent = order
+                                .status_ship ? 'Finalizada' : 'Em processo...';
+                            document.getElementById('orderCreatedAt').textContent = new Date(
+                                order.created_at).toLocaleString('pt-BR');
 
                             viewModal.show();
                         })
-                        .catch(error => console.error('Erro ao buscar dados da categoria:', error));
+                        .catch(error => console.error('Erro ao buscar detalhes da compra:', error));
                 });
             });
         });
