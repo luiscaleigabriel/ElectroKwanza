@@ -8,8 +8,8 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-chart-line fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Vendas do Dia</p>
+                    <h6 class="mb-0">{{ count($orders) }}</h6>
                 </div>
             </div>
         </div>
@@ -17,8 +17,8 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-chart-bar fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Total Sale</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Ganhos do Dia</p>
+                    <h6 class="mb-0">{{ number_format($ganhos, 2, ',', '.') }}Kz</h6>
                 </div>
             </div>
         </div>
@@ -26,8 +26,8 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-chart-area fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Today Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Ganhos do Mês</p>
+                    <h6 class="mb-0">{{ number_format($price_total_orders, 2, ',', '.') }}Kz</h6>
                 </div>
             </div>
         </div>
@@ -35,8 +35,8 @@
             <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                 <i class="fa fa-chart-pie fa-3x text-primary"></i>
                 <div class="ms-3">
-                    <p class="mb-2">Total Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
+                    <p class="mb-2">Total de Usuários</p>
+                    <h6 class="mb-0">{{ count($users) }}</h6>
                 </div>
             </div>
         </div>
@@ -73,68 +73,38 @@
 <div class="container-fluid pt-4 px-4">
     <div class="bg-light text-center rounded p-4">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Recent Salse</h6>
-            <a href="">Show All</a>
+            <h6 class="mb-0">Vendas Recente</h6>
+            <a href="#">Mostrar Todas</a>
         </div>
         <div class="table-responsive">
             <table class="table text-start align-middle table-bordered table-hover mb-0">
                 <thead>
                     <tr class="text-dark">
-                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Invoice</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Amount</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Entrega</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
+                    @foreach ($orders as $order)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y H:i') }}</td>
+                            <td>{{ number_format($order->total_price, 2, ',', '.') }}Kz</td>
+                            <td>
+                                @foreach ($users as $user)
+                                    @if ($user->id == $order->user_id)
+                                        {{ $user->firstname . ' ' . $user->lastname }}
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td>{{ $order->ship > 0 ? number_format($order->ship, 2, ',', '.') . 'Kz' : 'Indisponivel' }}</td>
+                            <td><button type="button" class="btn btn-success btn-sm " disabled>{{ $order->status }}</button></td>
+                            <td><a class="btn btn-sm btn-primary" href="#">Detalhes</a></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

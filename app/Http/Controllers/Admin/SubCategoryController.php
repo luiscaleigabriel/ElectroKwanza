@@ -114,7 +114,7 @@ class SubCategoryController extends Controller
         $subcategory = $subcategory->findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:20|unique:subcategories,name',
+            'name' => 'required|string|max:20|unique:subcategories,name,' . $subcategory->id,
             'category_id' => 'required',
         ], [
             'name.required' => 'O campo nome é obrigatório',

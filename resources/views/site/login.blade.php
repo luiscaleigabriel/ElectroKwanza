@@ -73,7 +73,7 @@
                         <div class="button">
                             <button class="btn" type="submit">Entrar</button>
                         </div>
-                        <p class="outer-link">Não tem uma conta? <a href="register.html">Registre-se Aqui </a>
+                        <p class="outer-link">Não tem uma conta? <a href="{{ route('register') }}">Registre-se Aqui </a>
                         </p>
                     </div>
                 </form>

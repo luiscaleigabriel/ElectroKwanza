@@ -14,7 +14,13 @@ class DashController extends Controller
         $orders = $order->all();
         $users = $user->all();
 
-        dd(count($users));
-        return view('admin.dashboard', compact('orders', 'users'));
+        $price_total_orders = 0;
+        foreach($orders as $order) {
+            $price_total_orders += $order->total_price;
+        }
+
+        $ganhos = $price_total_orders - ($price_total_orders - (($price_total_orders * 30) / 100));
+
+        return view('admin.dashboard', compact('orders', 'users', 'ganhos', 'price_total_orders'));
     }
 }
