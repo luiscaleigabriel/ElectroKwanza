@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ShipController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
@@ -150,5 +151,14 @@ Route::middleware(['auth', 'admin'])->group(
         // Ship operaction
         Route::get('/admin/ship', [ShipController::class, 'index'])->name('admin.ship');
         Route::put('/admin/ship/{id}/confirm', [ShipController::class, 'confirm'])->name('admin.ship.shipconfirm');
+
+        // Users operaction
+        Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users');
+        Route::get('/admin/create/users', [AdminUserController::class, 'create'])->name('admin.users.create');
+        Route::get('/admin/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+        Route::post('/admin/create/user', [AdminUserController::class, 'store'])->name('admin.users.store');
+        Route::get('/admin/users/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+        Route::put('/admin/users/{id}', [AdminUserController::class, 'update'])->name('admin.users.update');
+        Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
     }
 );

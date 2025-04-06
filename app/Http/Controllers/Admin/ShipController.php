@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 
 class ShipController extends Controller
 {
-    public function index(Order $order, User $user)
+    public function index(Order $order, User $user, Request $request)
     {
+        $search = $request->input('search');
         $users = $user->all();
-        $orders = $order->all();
+
+        $orders = $order->when($search, function ($query, $search) {
+            return $query->where('created_at', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%")
+                ->orWhere('total_price', 'like', "%{$search}%");
+        })->paginate(10);
 
         return view('admin.ship.index', compact('orders', 'users'));
     }
