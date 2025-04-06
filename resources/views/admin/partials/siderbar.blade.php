@@ -15,14 +15,18 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="{{ route('dash') }}" class="nav-item nav-link"><i class="bi bi-grid"></i>Dashboard</a>
-            <a href="{{ route('admin.categories') }}" class="nav-item nav-link"><i class="bi bi-stack"></i>Categorias</a>
-            <a href="{{ route('admin.subcategories') }}" class="nav-item nav-link"><i class="bi bi-stack"></i>SubCategorias</a>
-            <a href="{{ route('admin.brands') }}" class="nav-item nav-link"><i class="bi bi-stack"></i></i>Marcas</a>
-            <a href="{{ route('admin.products') }}" class="nav-item nav-link"><i class="bi bi-cart"></i>Produtos</a>
-            <a href="{{ route('admin.orders') }}" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Compras</a>
-            <a href="{{ route('admin.ship') }}" class="nav-item nav-link"><i class="bi bi-calendar-check"></i>Entregas</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-people"></i>Usuários</a>
+            @if (Auth::user()->role == 'admin')
+                <a href="{{ route('dash') }}" class="nav-item nav-link"><i class="bi bi-grid"></i>Dashboard</a>
+                <a href="{{ route('admin.categories') }}" class="nav-item nav-link"><i class="bi bi-stack"></i>Categorias</a>
+                <a href="{{ route('admin.subcategories') }}" class="nav-item nav-link"><i class="bi bi-stack"></i>SubCategorias</a>
+                <a href="{{ route('admin.brands') }}" class="nav-item nav-link"><i class="bi bi-stack"></i></i>Marcas</a>
+                <a href="{{ route('admin.products') }}" class="nav-item nav-link"><i class="bi bi-cart"></i>Produtos</a>
+                <a href="{{ route('admin.orders') }}" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Compras</a>
+                <a href="{{ route('admin.ship') }}" class="nav-item nav-link"><i class="bi bi-calendar-check"></i>Entregas</a>
+                <a href="chart.html" class="nav-item nav-link"><i class="bi bi-people"></i>Usuários</a>
+            @else
+                <a href="{{ route('admin.ship') }}" class="nav-item nav-link"><i class="bi bi-calendar-check"></i>Entregas</a>
+            @endif
         </div>
     </nav>
 </div>

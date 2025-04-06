@@ -2,7 +2,7 @@
 @section('content')
     <!-- Table Start -->
     <div class="container-fluid pt-4 px-4">
-        <h2>Compras</h2>
+        <h2>Entregas</h2>
         <div class="row g-4">
             <div class="col-12">
                 <div class="bg-light rounded h-100 p-4">
@@ -40,7 +40,7 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-success btn-sm "
-                                            disabled>{{ $order->status }}</button>
+                                                disabled>{{ $order->status }}</button>
                                         </td>
                                         <td>
                                             {{ \Carbon\Carbon::parse($order->created_at)->format('d/m/Y H:i') }}
@@ -80,22 +80,57 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-dark view-category"
-                                                data-id="{{ $order->id }}">
-                                                <i class="bi bi-eye"></i>
+                                            <!-- Botão que chama o modal -->
+                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal{{ $order->id }}">
+                                                <i class="bi bi-trash"></i>
                                             </button>
+
+                                            <!-- Modal de Confirmação -->
+                                            <div class="modal fade" id="deleteModal{{ $order->id }}" tabindex="-1"
+                                                aria-labelledby="deleteModalLabel{{ $order->id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="deleteModalLabel{{ $order->id }}">Finalização de
+                                                                Entrega</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Entregou o produto do Cliente: <strong>
+                                                                @foreach ($users as $user)
+                                                                    @if ($user->id == $order->user_id)
+                                                                        {{ $user->firstname . ' ' . $user->lastname }}
+                                                                    @endif
+                                                                @endforeach
+                                                            </strong>?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancelar</button>
+                                                            <form
+                                                                action="{{ route('admin.ship.shipconfirm', $order->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-success">Sim,
+                                                                    Entreguei</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5">Nenhuma Compra encontrada</td>
+                                        <td colspan="5">Nenhuma enconmenda por entregar</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-end">
-                            {{ $orders->links('pagination.custom') }}
-                        </div>
                     </div>
                 </div>
             </div>

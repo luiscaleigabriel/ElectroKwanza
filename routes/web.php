@@ -149,5 +149,6 @@ Route::middleware(['auth', 'admin'])->group(
 
         // Ship operaction
         Route::get('/admin/ship', [ShipController::class, 'index'])->name('admin.ship');
+        Route::put('/admin/ship/{id}/confirm', [ShipController::class, 'confirm'])->name('admin.ship.shipconfirm');
     }
 );
