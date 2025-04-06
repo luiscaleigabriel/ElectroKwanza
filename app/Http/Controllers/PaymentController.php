@@ -60,15 +60,25 @@ class PaymentController extends Controller
         // Usar transação para garantir integridade dos dados
         DB::beginTransaction();
 
+        $ship = 0;
+
+        if($amountToPay > 100000) {
+            $ship = 0;
+        }elseif(session('ship') > 0) {
+            $ship = session('ship');
+        }else {
+            $ship = 1;
+        }
+
         try {
             // Criar o pedido
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'total_price' => Cart::content()->sum(function ($item) {
                     return $item->price * $item->qty;
-                }) + session('ship'),
+                }) + $ship,
                 'status' => 'Finalizada',
-                'ship' => session('ship')
+                'ship' => $ship
             ]);
 
             // Adicionar itens do carrinho ao pedido
@@ -91,7 +101,7 @@ class PaymentController extends Controller
                 'order_id' => $order->id,
                 'amount' => Cart::content()->sum(function ($item) {
                     return $item->price * $item->qty;
-                }) + session('ship'),
+                }) + $ship,
                 'payment_method' => 'Unitel Money',
                 'status' => 'Comprado',
             ]);

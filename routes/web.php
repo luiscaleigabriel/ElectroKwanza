@@ -5,7 +5,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ShipController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
@@ -141,5 +143,11 @@ Route::middleware(['auth', 'admin'])->group(
         Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
         Route::put('/admin/product/{id}', [ProductController::class, 'update'])->name('admin.products.update');
         Route::delete('/admin/product/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+
+        // Order operaction
+        Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders');
+
+        // Ship operaction
+        Route::get('/admin/ship', [ShipController::class, 'index'])->name('admin.ship');
     }
 );

@@ -102,7 +102,8 @@
                                                 </h6>
                                             </div>
                                             <div class="col-2">
-                                                <button type="button" class="btn btn-success btn-sm " disabled>{{ $order->status }}</button>
+                                                <button type="button" class="btn btn-success btn-sm "
+                                                    disabled>{{ $order->status }}</button>
                                             </div>
                                             <div class="col-2">
                                                 <h6 class="product-name">
@@ -110,18 +111,33 @@
                                                 </h6>
                                             </div>
                                             <div class="col-2">
-                                                @if (($order->total_price > 100000) || ($order->ship > 0))
+                                                @if ($order->total_price > 100000)
                                                     @if ($order->status_ship == true)
-                                                        <button type="button" class="btn btn-success btn-sm " disabled>Finalizada</button>
+                                                        <button type="button" class="btn btn-success btn-sm "
+                                                            disabled>Finalizada</button>
                                                     @else
-                                                        <button type="button" class="btn btn-secondary btn-sm " disabled>Em processo...</button>
+                                                        <button type="button" class="btn btn-secondary btn-sm " disabled>Em
+                                                            processo...</button>
                                                     @endif
                                                 @else
-                                                <button type="button" class="btn btn-warning btn-sm " disabled>Não Pago</button>
+                                                    @if ($order->ship > 0)
+                                                        @if ($order->status_ship == true)
+                                                            <button type="button" class="btn btn-success btn-sm "
+                                                                disabled>Finalizada</button>
+                                                        @else
+                                                            <button type="button" class="btn btn-secondary btn-sm "
+                                                                disabled>Em
+                                                                processo...</button>
+                                                        @endif
+                                                    @elseif ($order->ship == 1)
+                                                        <button title="Vá pegar os seus produtos em uma lojá mais proxima de si. Obrigado por nos escolher, volte sempre!" type="button" class="btn btn-warning btn-sm " disabled>Não
+                                                            Pago</button>
+                                                    @endif
                                                 @endif
                                             </div>
                                             <div class="col-2">
-                                                <a href="{{ route('payments.pdf', $order->id) }}" class="btn btn-primary">Gerar Recibo</a>
+                                                <a href="{{ route('payments.pdf', $order->id) }}"
+                                                    class="btn btn-primary">Gerar Recibo</a>
                                             </div>
                                         </div>
                                     </div>

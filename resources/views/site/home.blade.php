@@ -169,11 +169,11 @@
                     <div class="single-category">
                         <h3 class="heading">TV & Audio</h3>
                         <ul>
-                            <li><a href="#">TV Smart</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Escutadores</a></li>
-                            <li><a href="#">Ver Tudo</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=tv-smart">TV Smart</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=led-tv">LED TV</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=tv">TV</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=hp">HP</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=tv-&-audio">Ver Tudo</a></li>
                         </ul>
                         <div class="images">
                             <img src="assets/imagens/categories/fetured-item-1.png" alt="#">
@@ -186,11 +186,11 @@
                     <div class="single-category">
                         <h3 class="heading">Desktop & Laptop</h3>
                         <ul>
-                            <li><a href="#">TV Smart</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Escutadores</a></li>
-                            <li><a href="#">Ver Tudo</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=computadores">Desktops</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=portateis">Portateis</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=colunas">Colunas</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=acessorios">Acessórios</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=informatica">Ver Tudo</a></li>
                         </ul>
                         <div class="images">
                             <img src="assets/imagens/categories/fetured-item-2.png" alt="#">
@@ -201,13 +201,13 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">Cctv Camera</h3>
+                        <h3 class="heading">Cctv Câmera</h3>
                         <ul>
-                            <li><a href="#">TV Smart</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Escutadores</a></li>
-                            <li><a href="#">Ver Tudo</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=camera">Câmera</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=camera-cctv">Cctv</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=camera-vigilancia">Vigilância</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=cameras">Diversos</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=imagem">Ver Tudo</a></li>
                         </ul>
                         <div class="images">
                             <img src="assets/imagens/categories/fetured-item-3.png" alt="#">
@@ -218,13 +218,13 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Category -->
                     <div class="single-category">
-                        <h3 class="heading">Dslr Camera</h3>
+                        <h3 class="heading">Dslr Câmera</h3>
                         <ul>
-                            <li><a href="#">TV Smart</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Escutadores</a></li>
-                            <li><a href="#">Ver Tudo</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=camera-profissional">Profissional</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=camera-dlr">Dlr</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=camera-pequena">Mini-Câmera</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=acessorios">Acessórios</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=cameras">Ver Tudo</a></li>
                         </ul>
                         <div class="images">
                             <img src="assets/imagens/categories/fetured-item-4.png" alt="#">
@@ -237,11 +237,11 @@
                     <div class="single-category">
                         <h3 class="heading">Smart Phones</h3>
                         <ul>
-                            <li><a href="#">TV Smart</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Escutadores</a></li>
-                            <li><a href="#">Ver Tudo</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=telefones">Telefones</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=tabletes">Tablets</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=iphone">Iphone</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=acessorios">Acessórios</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=smartphones">Ver Tudo</a></li>
                         </ul>
                         <div class="images">
                             <img src="assets/imagens/categories/fetured-item-5.png" alt="#">
@@ -254,11 +254,11 @@
                     <div class="single-category">
                         <h3 class="heading">Game & Consola</h3>
                         <ul>
-                            <li><a href="#">TV Smart</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Escutadores</a></li>
-                            <li><a href="#">Ver Tudo</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=game">Jogos</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=consola">Consolas</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=psp">PSP(3,4,5)</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=acessorios">Acessórios</a></li>
+                            <li><a href="{{ route('home.loja') }}?search=game-e-consola">Ver Tudo</a></li>
                         </ul>
                         <div class="images">
                             <img src="assets/imagens/categories/fetured-item-6.png" alt="#">

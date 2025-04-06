@@ -20,10 +20,9 @@
             <a href="{{ route('admin.subcategories') }}" class="nav-item nav-link"><i class="bi bi-stack"></i>SubCategorias</a>
             <a href="{{ route('admin.brands') }}" class="nav-item nav-link"><i class="bi bi-stack"></i></i>Marcas</a>
             <a href="{{ route('admin.products') }}" class="nav-item nav-link"><i class="bi bi-cart"></i>Produtos</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Compras</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-calendar-check"></i>Entregas</a>
+            <a href="{{ route('admin.orders') }}" class="nav-item nav-link"><i class="bi bi-cash-stack"></i>Compras</a>
+            <a href="{{ route('admin.ship') }}" class="nav-item nav-link"><i class="bi bi-calendar-check"></i>Entregas</a>
             <a href="chart.html" class="nav-item nav-link"><i class="bi bi-people"></i>Usuários</a>
-            <a href="chart.html" class="nav-item nav-link"><i class="bi bi-chat-left"></i>Mensagens</a>
         </div>
     </nav>
 </div>
