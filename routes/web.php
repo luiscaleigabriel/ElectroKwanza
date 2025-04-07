@@ -177,7 +177,7 @@ Route::middleware(['auth', 'admin'])->group(
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', ''])->group(
+Route::middleware(['auth', 'seller'])->group(
     function () {
         // Ship operaction
         Route::get('/admin/ship', [ShipController::class, 'index'])->name('admin.ship');

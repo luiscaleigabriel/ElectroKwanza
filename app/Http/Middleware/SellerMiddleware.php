@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SellerMiddleware
 {
@@ -16,6 +17,11 @@ class SellerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if(Auth::check() && Auth::user()->role === 'seller' || Auth::check() && Auth::user()->role === 'admin') {
+            return $next($request);
+        }else {
+            $request->session()->flush();
+            return redirect()->route('home.index');
+        }
     }
 }
