@@ -10,8 +10,8 @@
                             <div class="dropdown">
                                 <div class="dropdown-toggle d-flex align-items-center text-decoration-none" id="userDropdown"
                                     data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-                                    <i class="lni lni-user me-1"></i>
-                                    <span>Olá, {{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</span>
+                                    <i style="color: dodgerblue;" class="lni lni-user me-1"></i>
+                                    <span style="color: dodgerblue;">Olá, {{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</span>
                                 </div>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     @if (Auth::user()->role == 'customer')
